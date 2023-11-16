@@ -50,8 +50,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 
     // Kriteria
     Route::get('/criteria', [CriteriaController::class, 'index'])->name('admin.criteria');
+    Route::get('/criteria/{id}', [SubkriteriaController::class, 'create'])->name('admin.subcriteria');
+    Route::post('/addsubcriteria', [SubkriteriaController::class, 'store'])->name('admin.addSubCriteria');
     Route::post('/addCriteria', [CriteriaController::class, 'store'])->name('admin.addCriteria');
     Route::get('/deleteCriteria/{criteria}', [CriteriaController::class, 'destroy'])->name('admin.deleteCriteria');
+    Route::get('/deleteSubCriteria/{subCriteria}', [SubkriteriaController::class, 'destroy'])->name('admin.deleteSubCriteria');
 
     // Ratio Kriteria
     Route::get('/ratioCriteria', [RatioCriteriaController::class, 'index'])->name('admin.ratioCriteria');

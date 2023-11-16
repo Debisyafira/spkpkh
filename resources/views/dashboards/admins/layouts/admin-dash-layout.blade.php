@@ -57,7 +57,9 @@
           <!-- ============================================================== -->
           <div class="navbar-brand">
             <div class="sidebar-brand">
-              <a href="{{ url('/') }}">SPK PKH</a>
+              <a href="{{ url('/') }}">
+                <img src="{{ asset('/images/pkhlogo.png') }}" alt="" class="img-fluid">
+              </a>
             </div>
             <!-- Logo icon -->
             {{-- <a href="index.html">
