@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Calon_pkh;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PkhController extends Controller
@@ -61,12 +60,9 @@ class PkhController extends Controller
                 'alamat' => $request->alamat,
             ]);
         if ($update) {
-            return redirect(route('admin.pkh'))->with('pesan', 'Data PKH berhasil disimpan');
+            return redirect(route('admin.pkh'))->with('success', 'Data PKH berhasil disimpan');
         } else {
-            echo "<script>
-                alert('Data gaga; diinput, masukkan kembali data dengan benar');
-                window.location = '/dashboards.admins.pkh.index';
-                </script>";
+            return redirect(route('admin.pkh'))->with('error', 'Data PKH gagal disimpan');
         }
     }
 
@@ -78,6 +74,7 @@ class PkhController extends Controller
         return json_encode([
             'status' => 'success',
         ]);
+
         // return redirect()->route('admin.pkh')->with('success', 'Data PKH berhasil dihapus');
     }
 

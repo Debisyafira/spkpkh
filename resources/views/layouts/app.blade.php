@@ -79,6 +79,10 @@
       </div>
     </nav>
     {{-- Get message if success/error --}}
+
+    <main class="py-4">
+      @yield('content')
+    </main>
     @if (Session::has('success'))
       <script>
         Swal.fire({
@@ -95,16 +99,25 @@
         Swal.fire({
           position: "top-end",
           icon: "error",
-          //   show message from controller
           title: "{!! Session::get('error') !!}",
           showConfirmButton: false,
           timer: 1500
         })
       </script>
     @endif
-    <main class="py-4">
-      @yield('content')
-    </main>
+
+    // if with('pesan', 'Isi pesan')
+    @if (session()->has('pesan'))
+      <script>
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "{{ session('pesan') }}",
+          showConfirmButton: false,
+          timer: 1500
+        })
+      </script>
+    @endif
   </div>
 </body>
 

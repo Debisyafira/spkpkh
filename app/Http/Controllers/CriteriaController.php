@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class CriteriaController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -17,10 +17,10 @@ class CriteriaController extends Controller
     {
         try {
             $criteria = Criteria::all()->toArray();
-            $ratio    = RatioCriteriaController::data();
-            $data = (object)[
-                'criteria'  => $criteria,
-                'ratio'     => $ratio,
+            $ratio = RatioCriteriaController::data();
+            $data = (object) [
+                'criteria' => $criteria,
+                'ratio' => $ratio,
             ];
         } catch (\Throwable $th) {
             $data = null;
@@ -28,15 +28,11 @@ class CriteriaController extends Controller
 
         // dd($data);
         return view('dashboards.admins.kriteria.criteria')->with('data', $data);
-
     }
-
-
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -49,7 +45,7 @@ class CriteriaController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect()->back()->with('message', 'Insert Data Criteria Success');
+        return redirect()->back()->with('success', 'Insert Data Criteria Success');
     }
 
     public function storeRatio(Request $request)
@@ -64,7 +60,9 @@ class CriteriaController extends Controller
                             ->where('h_criteria_id', $request->h_criteria)
                             ->count()
         ) {
-            return redirect()->back()->with('message', 'Data Sudah Pernah disimpan');
+            return redirect()->back()->with('success', 'Data Sudah Pernah disimpan');
+        } else {
+            return redirect()->back()->with('serror', 'Data gagal disimpan');
         }
 
         Ratio_criteria::create(
@@ -78,18 +76,18 @@ class CriteriaController extends Controller
                 'v_criteria_id' => $request->h_criteria,
                 'value' => (1 / $request->value),
             ]);
-        return redirect()->back()->with('message', 'Input Data Sukses');
+
+        return redirect()->back()->with('success', 'Input Data Sukses');
     }
 
     public function massUpdate(Request $request)
     {
-
-        foreach ($request->except(['_token', 'row'])  as $key => $value) {
+        foreach ($request->except(['_token', 'row']) as $key => $value) {
             $keyID = Criteria::getIdfromName($key);
             $rowID = Criteria::getIdfromName($request->row);
-            if($keyID == $rowID){
+            if ($keyID == $rowID) {
                 continue;
-            };
+            }
             Ratio_criteria::where([
                     ['h_criteria_id', '=', $keyID],
                     ['v_criteria_id', '=', $rowID],
@@ -100,11 +98,11 @@ class CriteriaController extends Controller
                     ['h_criteria_id', '=', $rowID],
                     ['v_criteria_id', '=', $keyID],
                 ])->update([
-                    'value' => (1/$value),
+                    'value' => (1 / $value),
                 ]);
         }
 
-        return redirect()->back()->with('message', 'Input Data Sukses');
+        return redirect()->back()->with('success', 'Input Data Sukses');
     }
 
     public function destroy(Criteria $criteria)
@@ -113,10 +111,11 @@ class CriteriaController extends Controller
             ->orWhere('h_criteria_id', $criteria->id)
             ->count();
         if ($existance > 1) {
-            return redirect()->back()->with(["message" => "Info : Kriteria memiliki relasi perbandingan!"]);
+            return redirect()->back()->with(['error' => 'Info : Kriteria memiliki relasi perbandingan!']);
         } else {
             $criteria->delete();
-            return redirect()->back()->with(["message" => "Delete Data sukses"]);
+
+            return redirect()->back()->with(['success' => 'Delete Data sukses']);
         }
     }
 }

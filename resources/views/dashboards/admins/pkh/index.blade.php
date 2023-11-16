@@ -82,6 +82,13 @@
                             },
                             success: function(response) {
                               $(`tr[data-id=${id}]`).remove();
+                              Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "Berhasil dihapus",
+                                showConfirmButton: false,
+                                timer: 2000
+                              });
                             }
                           });
                         }
