@@ -20,4 +20,11 @@ class Subkriteria extends Model
     {
         return $this->belongsTo(Criteria::class);
     }
+
+    public function pkhs()
+    {
+        return $this->belongsToMany(Calon_pkh::class, 'pkh_sub_criteria')
+            ->withPivot('value')
+            ->withTimestamps();
+    }
 }

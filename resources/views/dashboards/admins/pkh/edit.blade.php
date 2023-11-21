@@ -48,6 +48,38 @@
             </div>
           </div>
         </div>
+        <div class="col-md-6 col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="table-responsive">
+                @php
+                  $selected = null;
+                @endphp
+                @foreach ($criterias as $criteria)
+                  @foreach ($data->subCriterias as $value)
+                    @if ($criteria->id == $value->criteria_id)
+                      @php
+                        $selected = $value->pivot->subkriteria_id;
+                      @endphp
+                    @endif
+                  @endforeach
+                  <div class="form-group">
+
+                    <label> {{ $criteria->name }} </label>
+                    <select name="criteria_values[{{ $criteria->id }}]" class="form-control">
+                      <option disabled @if ($selected == null) selected @endif>Pilih Kategori</option>
+                      @foreach ($criteria->subCriteria as $sub)
+                        <option value="{{ $sub->id }}" @if ($selected == $sub->id) selected @endif>
+                          {{ $sub->name }}
+                        </option>
+                      @endforeach
+                    </select>
+                  </div>
+                @endforeach
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </form>

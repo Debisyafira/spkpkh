@@ -18,8 +18,15 @@ class Criteria extends Model
         'name',
     ];
 
-    public static function getIdfromName($name){
+    public static function getIdfromName($name)
+    {
         $data = Criteria::where('name', '=', $name)->first();
+
         return $data->id;
+    }
+
+    public function subCriteria()
+    {
+        return $this->hasMany(Subkriteria::class);
     }
 }

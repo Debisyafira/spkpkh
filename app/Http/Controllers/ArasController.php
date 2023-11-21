@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class ArasController extends Controller
 {
-    //
+    public function hitung_Aras()
+    {
+    }
+
+    public function tabel_
 }

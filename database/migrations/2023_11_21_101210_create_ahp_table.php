@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKriteriaTerbobotsTable extends Migration
+class CreateAhpTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateKriteriaTerbobotsTable extends Migration
      */
     public function up()
     {
-        Schema::create('kriteria_terbobots', function (Blueprint $table) {
+        Schema::create('ahp', function (Blueprint $table) {
             $table->id();
-            $table->string('kode');
             $table->foreignId('criteria_id')->constrained('criterias')->onUpdate('cascade')->onDelete('cascade');
-            $table->float('bobot');
-            $table->boolean('type')->default(true);
+            $table->float('total_eigen');
+            $table->float('average_eigen');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateKriteriaTerbobotsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kriteria_terbobots');
+        Schema::dropIfExists('ahp');
     }
 }

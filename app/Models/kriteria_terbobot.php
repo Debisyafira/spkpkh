@@ -13,6 +13,6 @@ class kriteria_terbobot extends Model
     // protected $primaryKey = 'id';
     public $timestamps = false;
     protected $fillable = [
-        'kode', 'name', 'bobot', 'type'
+        'kode', 'criteria_id', 'bobot', 'type'
     ];
 }

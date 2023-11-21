@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Calon_pkh;
+use App\Models\Criteria;
+use App\Models\Subkriteria;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PkhController extends Controller
@@ -19,22 +20,38 @@ class PkhController extends Controller
 
     public function create()
     {
-        return view('dashboards.admins.pkh.add');
+        $criterias = Criteria::all();
+
+        return view('dashboards.admins.pkh.add', compact('criterias'));
     }
 
     public function store(Request $request)
     {
-        $input = Calon_pkh::insert([
-            // kalau id auto increment, ga usah d tambahin disini
+        $calonPkh = new Calon_pkh([
             'nik' => $request->nik,
             'nama' => $request->nama_lengkap,
             'alamat' => $request->alamat,
         ]);
-        if ($input) {
+
+        $calonPkh->save();
+
+        if ($calonPkh) {
+            foreach ($request->criteria_values as $criteriaId => $subCriteriaValues) {
+                $criteria = Criteria::find($criteriaId);
+
+                if ($criteria) {
+                    $subCriteria = Subkriteria::find($subCriteriaValues);
+
+                    if ($subCriteria) {
+                        $calonPkh->subCriterias()->attach($subCriteria, ['value' => $subCriteria->nilai]);
+                    }
+                }
+            }
+
             return redirect()->route('admin.pkh')->with('pesan', 'Data berhasil disimpan');
         } else {
             echo "<script>
-            alert('Data gagal diinput, masukkan kembali data dengan bener');
+            alert('Data gagal diinput, masukkan kembali data dengan benar');
             window.location = '".route('admin.pkh')."';
             </script>";
         }
@@ -42,29 +59,42 @@ class PkhController extends Controller
 
     public function edit(Request $req)
     {
-        $data = DB::table('calon_pkhs')
-            ->where('id', $req->id)
-            ->first();
+        $data = Calon_pkh::where('id', $req->id)->first();
+        $criterias = Criteria::all();
 
         // dd($data);
-        return view('dashboards.admins.pkh.edit', compact('data'));
+
+        return view('dashboards.admins.pkh.edit', compact('data', 'criterias'));
     }
 
     public function update(Request $request)
     {
-        $update = DB::table('calon_pkhs')
-            ->where('id', $request->id)
-            ->update([
-                'nik' => $request->nik,
-                'nama' => $request->nama,
-                'alamat' => $request->alamat,
-            ]);
-        if ($update) {
-            return redirect(route('admin.pkh'))->with('success', 'Data PKH berhasil disimpan');
-        } else {
-            return redirect(route('admin.pkh'))->with('error', 'Data PKH gagal disimpan');
+        $calonPkh = Calon_pkh::where('id', $request->id)->first();
+        if(!$calonPkh){
+            return redirect(route('admin.pkh'))->with('error', 'User tidak ditemukan');
+            
         }
-    }
+        $calonPkh->update([
+            'nik' => $request->nik,
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+        ]);
+
+        foreach ($request->criteria_values as $criteriaId => $subCriteriaValues) {
+            $criteria = Criteria::find($criteriaId);
+    
+            if ($criteria) {
+                $subCriteria = Subkriteria::find($subCriteriaValues);
+    
+                if ($subCriteria) {
+                    // Attach the subCriteria to the Calon_pkh with the specified value
+                    $calonPkh->subCriterias()->attach($subCriteria, ['value' => $subCriteria->nilai]);
+                }
+            }
+        }
+    
+        return redirect(route('admin.pkh'))->with('success', 'Data PKH berhasil disimpan');
+    } 
 
     public function destroy(Request $req)
     {
