@@ -197,8 +197,8 @@
                 aria-expanded="false"><i data-feather="archive" class="feather-icon"></i><span class="hide-menu">
                   Metode ARAS</span></a>
               <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                <li class="sidebar-item"><a href="{{ route('admin.kriteria_terbobot') }}" class="sidebar-link"><span
-                      class="hide-menu"> Kriteria Terbobot
+                <li class="sidebar-item"><a href="{{ route('admin.dataCriteria') }}" class="sidebar-link"><span
+                      class="hide-menu"> Data Kriteria
                     </span></a>
                 </li>
                 <li class="sidebar-item"><a href="table-basic.html" class="sidebar-link"><span class="hide-menu">

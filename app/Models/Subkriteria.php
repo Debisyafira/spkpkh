@@ -27,4 +27,9 @@ class Subkriteria extends Model
             ->withPivot('value')
             ->withTimestamps();
     }
+
+    public function pkhSubs()
+    {
+        return $this->hasMany(PkhCriteria::class);
+    }
 }

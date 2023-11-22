@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Criteria;
-use App\Models\Ratio_criteria;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\Ratio_criteria;
+use App\Models\kriteria_terbobot;
 
 class RatioCriteriaController extends Controller
 {
@@ -38,6 +40,39 @@ class RatioCriteriaController extends Controller
             $data = null;
         }
         return view('dashboards.admins.kriteria.ratioCriteria')->with('data', $data);
+    }
+
+    public function save(Request $request)
+    {
+        // dd($request);
+        $success = false;
+        foreach($request->total_eigen as $key=>$tot)
+        {
+            $name= Str::remove("'", $key);
+            $criteria = Criteria::where('name', $name)->first();
+            // dd($criteria);
+            if ($criteria !== null){
+                $kriteria_terbobot_check = kriteria_terbobot::where('criteria_id', $criteria->id)->first();
+                if ($kriteria_terbobot_check == null){
+                    $kriteria_terbobot = new kriteria_terbobot();
+                    $kriteria_terbobot->criteria_id = $criteria->id;
+                    $kriteria_terbobot->total = $tot;
+                    $kriteria_terbobot->average = $request->average_eigen[$key];
+                    $kriteria_terbobot->save();
+                    $success = true;
+                }else{
+                    $kriteria_terbobot_check->update([
+                        'total'=>$tot,
+                        'average'=>$request->average_eigen[$key]
+                    ]);
+                    $success = true;
+                }
+            }
+        }
+        if (!$success){
+            return redirect()->route('admin.ratioCriteria')->with('error', 'Gagal');
+        }
+        return redirect()->route('admin.ratioCriteria')->with('success', 'Data Total dan Average untuk Eigen sudah tersimpan');
     }
 
     /**

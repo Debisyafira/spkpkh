@@ -29,10 +29,6 @@
             <div class="card-body">
               <div class="table-responsive">
                 <div class="form-group">
-                  <label>Nik</label>
-                  <input name="nik" class="form-control" value="{{ $data->nik }}">
-                </div>
-                <div class="form-group">
                   <label>Nama</label>
                   <input name="nama" class="form-control" value="{{ $data->nama }}">
                 </div>
@@ -55,6 +51,7 @@
                 @php
                   $selected = null;
                 @endphp
+                {{-- @dd($data->subCriterias) --}}
                 @foreach ($criterias as $criteria)
                   @foreach ($data->subCriterias as $value)
                     @if ($criteria->id == $value->criteria_id)

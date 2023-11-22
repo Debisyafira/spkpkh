@@ -50,6 +50,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 
     // Kriteria
     Route::get('/criteria', [CriteriaController::class, 'index'])->name('admin.criteria');
+    Route::put('/edit-criteria', [CriteriaController::class, 'update'])->name('admin.editCriteria');
     Route::get('/criteria/{id}', [SubkriteriaController::class, 'create'])->name('admin.subcriteria');
     Route::post('/addsubcriteria', [SubkriteriaController::class, 'store'])->name('admin.addSubCriteria');
     Route::post('/addCriteria', [CriteriaController::class, 'store'])->name('admin.addCriteria');
@@ -58,19 +59,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 
     // Ratio Kriteria
     Route::get('/ratioCriteria', [RatioCriteriaController::class, 'index'])->name('admin.ratioCriteria');
+    Route::post('/ratioCriteria/save', [RatioCriteriaController::class, 'save'])->name('admin.ratioCriteria.saveEigen');
     Route::post('/addRatioCriteria', [CriteriaController::class, 'storeRatio'])->name('admin.addRatioCriteria');
     Route::post('/massRatioCriteria', [CriteriaController::class, 'massUpdate'])->name('admin.massRatioCriteria');
     Route::get('/deleteRatioCriteria/{v_id}/{h_id}', [RatioCriteriaController::class, 'destroy'])->name('admin.deleteRatioCriteria');
     // End Kriteria
 
     // Kriteria terbobot
-    Route::get('kriteria_terbobot', [KriteriaTerbobotController::class, 'index'])->name('admin.kriteria_terbobot');
-    Route::get('kriteria_terbobot/create', [KriteriaTerbobotController::class, 'create'])->name('admin.kriteria_terbobot.create');
-    Route::post('kriteria_terbobot/simpan', [KriteriaTerbobotController::class, 'store'])->name('admin.kriteria_terbobot.simpan');
-    Route::get('kriteria_terbobot/edit', [KriteriaTerbobotController::class, 'edit'])->name('admin.kriteria_terbobot.edit');
-    Route::put('kriteria_terbobot/update', [KriteriaTerbobotController::class, 'update'])->name('admin.kriteria_terbobot.update');
-    Route::delete('kriteria_terbobot/delete', [KriteriaTerbobotController::class, 'destroy'])->name('admin.kriteria_terbobot.delete');
-
+    Route::get('data-kriteria', [KriteriaTerbobotController::class, 'index'])->name('admin.dataCriteria');
+   
     // data sub kriteria
     // Route::get('/subkriteria/{criteria}/create', SubKriteriaController::class)->name('subkriteria.create');
 });

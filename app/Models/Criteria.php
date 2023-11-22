@@ -15,7 +15,7 @@ class Criteria extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'name', 'code', 'type'
     ];
 
     public static function getIdfromName($name)
@@ -28,5 +28,9 @@ class Criteria extends Model
     public function subCriteria()
     {
         return $this->hasMany(Subkriteria::class);
+    }
+
+    public function ahp(){
+        return $this->belongsTo(ahp::class,'criteria_id');
     }
 }

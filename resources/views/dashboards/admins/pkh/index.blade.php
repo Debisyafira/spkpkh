@@ -45,7 +45,6 @@
               <table id="zero_config" class="table border table-striped table-bordered text-nowrap">
                 <thead>
                   <tr>
-                    <th scope="col">Nik </th>
                     <th scope="col">Nama</th>
                     <th scope="col">Alamat</th>
                     <th scope="col">Aksi</th>
@@ -55,7 +54,6 @@
                   <?php $no = 1; ?>
                   @foreach ($data as $item)
                     <tr data-id="{{ $item->id }}">
-                      <td>{{ $item->nik }}</td>
                       <td>{{ $item->nama }}</td>
                       <td>{{ $item->alamat }}</td>
                       <td>

@@ -16,6 +16,7 @@ class CreatePkhSubCriteriaTable extends Migration
         Schema::create('pkh_sub_criteria', function (Blueprint $table) {
             $table->id();
             $table->foreignId('calon_pkh_id')->constrained('calon_pkhs')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('criteria_id')->constrained('criterias')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('subkriteria_id')->constrained('subkriteria')->onUpdate('cascade')->onDelete('cascade');
             $table->string('value');
             $table->timestamps();

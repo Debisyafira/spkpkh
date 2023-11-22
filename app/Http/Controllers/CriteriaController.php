@@ -48,6 +48,25 @@ class CriteriaController extends Controller
         return redirect()->back()->with('success', 'Insert Data Criteria Success');
     }
 
+    public function update(Request $request)
+    {
+        // dd($request);
+        $id = $request->criteria_id;
+        $criteria = Criteria::where('id', $id)->first();
+        // dd($criteria);
+        if ($criteria != null) {
+            $criteria->update([
+                'name' => $request->name,
+                'code' => $request->code,
+                'type' => $request->type
+            ]);
+            return redirect(route('admin.subcriteria', $request->criteria_id))->with('success', 'Data berhasil disimpan');
+        } else {
+            return redirect()->route('admin.subcriteria',$request->criteria_id)->with('error', 'Gagal ditambahkan');
+
+        }
+    }
+
     public function storeRatio(Request $request)
     {
         $request->validate([

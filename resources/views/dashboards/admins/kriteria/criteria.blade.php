@@ -14,7 +14,7 @@
     <!-- Content Row -->
     <div class="row">
 
-      <div class="col-lg-4 mb-4">
+      <div class="col-lg-6 mb-4">
         <!-- Illustrations -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
@@ -23,10 +23,16 @@
           <div class="card-body">
             <form class="row g-3 mb-3" method="POST" action="{{ route('admin.addCriteria') }}">
               @csrf
-              <div class="col-8">
+              <div class="col-12">
                 <input type="text" class="form-control" id="inputCriteria" placeholder="Nama Kriteria" name="name">
               </div>
-              <div class="col-4">
+              <div class="col-12">
+                <select class="form-control" id="type" placeholder="Nama Kriteria" name="type">
+                  <option value="1">Benefit</option>
+                  <option value="0">Cost</option>
+                </select>
+              </div>
+              <div class="col-6">
                 <button type="submit" class="btn btn-primary mb-3">Tambah</button>
               </div>
             </form>
@@ -35,6 +41,8 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Nama</th>
+                  <th scope="col">Kode</th>
+                  <th scope="col">Type</th>
                   <th scope="col">Aksi</th>
                 </tr>
               </thead>
@@ -43,6 +51,8 @@
                   <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td><a href="{{ route('admin.subcriteria', $criteria['id']) }}">{{ $criteria['name'] }}</a></td>
+                    <td>{{ $criteria['code'] }}</td>
+                    <td>{{ $criteria['type'] ? 'Benefit' : 'Cost' }}</td>
                     <td>
                       <a href="{{ route('admin.deleteCriteria', ['criteria' => $criteria['id']]) }}"
                         class="btn btn-danger btn-circle">
@@ -57,7 +67,7 @@
         </div>
 
       </div>
-      <div class="col-lg-8 mb-4">
+      <div class="col-lg-6 mb-4">
         <!-- List -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">

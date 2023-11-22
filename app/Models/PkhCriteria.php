@@ -8,20 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class PkhCriteria extends Model
 {
     use HasFactory;
-    protected $table = 'pkh_criterias';
+    protected $table = 'pkh_sub_criteria';
     protected $fillable = [
         'pkh_id',
-        'sub_criteria_id',
+        'subkriteria_id',
+        'criteria_id',
         'value',
     ];
 
     public function pkh()
     {
-        return $this->belongsTo(Pkh::class);
+        return $this->belongsTo(Calon_pkh::class);
     }
 
     public function subCriteria()
     {
-        return $this->belongsTo(SubCriteria::class);
+        return $this->belongsTo(Subkriteria::class);
+    }
+
+    public function criteria()
+    {
+        return $this->belongsTo(Criteria::class);
     }
 }

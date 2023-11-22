@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCalonPkhsTable extends Migration
+class AlterCriteriasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateCalonPkhsTable extends Migration
      */
     public function up()
     {
-        Schema::create('calon_pkhs', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->string('alamat');
+        Schema::table('criterias', function (Blueprint $table) {
+            $table->string('code');
+            $table->boolean('type');
         });
     }
 
@@ -27,6 +26,9 @@ class CreateCalonPkhsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('calon_pkhs');
+        Schema::table('criterias', function (Blueprint $table) {
+            $table->dropColumn('type');
+            $table->dropColumn('code');
+        });
     }
 }

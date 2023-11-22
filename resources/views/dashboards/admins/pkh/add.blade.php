@@ -27,10 +27,7 @@
           <div class="card">
             <div class="card-body">
               <div class="table-responsive">
-                <div class="form-group">
-                  <label> Nik</label>
-                  <input name="nik" class="form-control" required>
-                </div>
+
                 <div class="form-group">
                   <label for="lbl_nama">Nama</label>
                   <input id="lbl_nama" name="nama_lengkap" class="form-control" required>

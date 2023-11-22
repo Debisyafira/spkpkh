@@ -33,7 +33,7 @@ class SubkriteriaController extends Controller
             return redirect(route('admin.subcriteria', $request->criteria_id))->with('success', 'Data berhasil di tambahkan');
         }
 
-        return redirect()->route('admin.subkriteria.create', ['id' => $request->criteria_id])->with('error', 'Gagal ditambahkan');
+        return redirect()->route('admin.subcriteria', $request->criteria_id)->with('error', 'Gagal ditambahkan');
     }
 
     public function destroy($id)

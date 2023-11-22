@@ -15,10 +15,9 @@ class CreateKriteriaTerbobotsTable extends Migration
     {
         Schema::create('kriteria_terbobots', function (Blueprint $table) {
             $table->id();
-            $table->string('kode');
             $table->foreignId('criteria_id')->constrained('criterias')->onUpdate('cascade')->onDelete('cascade');
-            $table->float('bobot');
-            $table->boolean('type')->default(true);
+            $table->float('total');
+            $table->float('average');
             $table->timestamps();
         });
     }

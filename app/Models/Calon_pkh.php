@@ -12,13 +12,23 @@ class Calon_pkh extends Model
     // protected $primaryKey = 'id';
     public $timestamps = false;
     protected $fillable = [
-        'nik', 'nama', 'alamat',
+         'nama', 'alamat',
     ];
 
     public function subCriterias()
     {
         return $this->belongsToMany(Subkriteria::class, 'pkh_sub_criteria')
-            ->withPivot(['value', 'subkriteria_id'])
+            ->withPivot(['value', 'subkriteria_id', 'criteria_id'])
             ->withTimestamps();
+    }
+
+    public function pkhSubs()
+    {
+        return $this->hasMany(PkhCriteria::class);
+    }
+
+    public function pkhSubcriteria()
+    {
+        return $this->hasManyThrough(PkhCriteria::class, Subkriteria::class, 'criteria_id', 'id');
     }
 }
