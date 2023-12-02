@@ -1,8 +1,11 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Calon_pkh;
+use App\Models\Criteria;
 
 class HomeController extends Controller
 {
@@ -23,7 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        return view('dashboards.admins.dashboard.index');
+        $count = Calon_pkh::count();
+        $count = Criteria::count();
+        return view('dashboards.admins.dashboard.index', compact('count'));
     }
 }

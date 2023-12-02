@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('auth.login');
-// });
+Route::get('/', function () {
+    return view('auth.login');
+});
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Route::middleware(['middleware' => 'PreventBackHistory'])->group(function () { // buat apa ini???
@@ -46,6 +46,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('pkh/edit', [PkhController::class, 'edit'])->name('admin.pkh.edit');
     Route::put('pkh/update', [PkhController::class, 'update'])->name('admin.pkh.update');
     Route::delete('pkh/delete', [PkhController::class, 'destroy'])->name('admin.pkh.delete');
+    // Route::delete('pkh/deleteAll', [PkhController::class, 'deleteAll'])->name('admin.pkh.deleteAll');
     Route::post('pkh/excel', [PkhController::class, 'importExcel'])->name('admin.pkh.excel');
 
     // Kriteria
@@ -62,12 +63,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::post('/ratioCriteria/save', [RatioCriteriaController::class, 'save'])->name('admin.ratioCriteria.saveEigen');
     Route::post('/addRatioCriteria', [CriteriaController::class, 'storeRatio'])->name('admin.addRatioCriteria');
     Route::post('/massRatioCriteria', [CriteriaController::class, 'massUpdate'])->name('admin.massRatioCriteria');
+    Route::get('/editRatioCriteria', [RatioCriteriaController::class, 'edit'])->name('admin.editRatioCriteria');
     Route::get('/deleteRatioCriteria/{v_id}/{h_id}', [RatioCriteriaController::class, 'destroy'])->name('admin.deleteRatioCriteria');
     // End Kriteria
 
     // Kriteria terbobot
     Route::get('data-kriteria', [KriteriaTerbobotController::class, 'index'])->name('admin.dataCriteria');
-   
+
     // data sub kriteria
     // Route::get('/subkriteria/{criteria}/create', SubKriteriaController::class)->name('subkriteria.create');
 });

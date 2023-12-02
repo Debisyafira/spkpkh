@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Calon_pkh;
 
 class AdminController extends Controller
 {
@@ -14,7 +15,8 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('dashboards.admins.dashboard.index');
+        $count = Calon_pkh::count();
+        return view('dashboards.admins.dashboard.index', compact('count'));
     }
 
     // public function user()

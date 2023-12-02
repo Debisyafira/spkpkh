@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Ratio_criteria;
 use App\Models\kriteria_terbobot;
+use App\Models\PkhCriteria;
 
 class RatioCriteriaController extends Controller
 {
@@ -34,7 +35,6 @@ class RatioCriteriaController extends Controller
     {
         try {
             $data = self::generate();
-
         } catch (\Throwable $th) {
             return redirect('criteria')->with(['message' => "data belum lengkap"]);
             $data = null;
@@ -46,30 +46,29 @@ class RatioCriteriaController extends Controller
     {
         // dd($request);
         $success = false;
-        foreach($request->total_eigen as $key=>$tot)
-        {
-            $name= Str::remove("'", $key);
+        foreach ($request->total_eigen as $key => $tot) {
+            $name = Str::remove("'", $key);
             $criteria = Criteria::where('name', $name)->first();
             // dd($criteria);
-            if ($criteria !== null){
+            if ($criteria !== null) {
                 $kriteria_terbobot_check = kriteria_terbobot::where('criteria_id', $criteria->id)->first();
-                if ($kriteria_terbobot_check == null){
+                if ($kriteria_terbobot_check == null) {
                     $kriteria_terbobot = new kriteria_terbobot();
                     $kriteria_terbobot->criteria_id = $criteria->id;
                     $kriteria_terbobot->total = $tot;
                     $kriteria_terbobot->average = $request->average_eigen[$key];
                     $kriteria_terbobot->save();
                     $success = true;
-                }else{
+                } else {
                     $kriteria_terbobot_check->update([
-                        'total'=>$tot,
-                        'average'=>$request->average_eigen[$key]
+                        'total' => $tot,
+                        'average' => $request->average_eigen[$key]
                     ]);
                     $success = true;
                 }
             }
         }
-        if (!$success){
+        if (!$success) {
             return redirect()->route('admin.ratioCriteria')->with('error', 'Gagal');
         }
         return redirect()->route('admin.ratioCriteria')->with('success', 'Data Total dan Average untuk Eigen sudah tersimpan');
@@ -137,7 +136,7 @@ class RatioCriteriaController extends Controller
     {
         $data = Ratio_criteria::join('criterias as v_criterias', 'ratio_criterias.v_criteria_id', '=', 'v_criterias.id')
             ->join('criterias as h_criterias', 'ratio_criterias.h_criteria_id', '=', 'h_criterias.id')
-            ->select('ratio_criterias.value', 'v_criterias.name as v_name', 'h_criterias.name as h_name', 'v_criterias.id as v_id', 'h_criterias.id as h_id')
+            ->select('ratio_criterias.id as id', 'ratio_criterias.value', 'v_criterias.name as v_name', 'h_criterias.name as h_name', 'v_criterias.id as v_id', 'h_criterias.id as h_id')
             ->orderBy('v_name', 'ASC')->get()->toArray();
 
         return $data;
@@ -270,6 +269,42 @@ class RatioCriteriaController extends Controller
      * @param  \App\Models\Ratio_criteria  $ratio_criteria
      * @return \Illuminate\Http\Response
      */
+    public function edit(Request $req)
+    {
+        $ratio = Ratio_criteria::where('id', $req->id)->first();
+        $criteria = Criteria::all()->toArray();
+        $data = (object) [
+            'criteria' => $criteria,
+            'ratio' => $ratio,
+        ];
+        // dd($criterias[0]->subCriteria);
+        // dd($data);
+        return view('dashboards.admins.kriteria.edit_ratio', compact('data'));
+    }
+
+    public function updateRatio(Request $request)
+    {
+        $request->validate([
+            'v_criteria' => 'required|different:h_criteria',
+            'h_criteria' => 'required|different:V_criteria',
+            'value' => 'numeric',
+        ]);
+
+        Ratio_criteria::create(
+            [
+                'v_criteria_id' => $request->v_criteria,
+                'h_criteria_id' => $request->h_criteria,
+                'value' => $request->value,
+            ]
+        );
+        Ratio_criteria::create([
+            'h_criteria_id' => $request->v_criteria,
+            'v_criteria_id' => $request->h_criteria,
+            'value' => (1 / $request->value),
+        ]);
+
+        return redirect()->back()->with('success', 'Input Data Sukses');
+    }
     public function destroy($v_id, $h_id)
     {
 

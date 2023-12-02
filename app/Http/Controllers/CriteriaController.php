@@ -39,10 +39,14 @@ class CriteriaController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
+            'code' => 'required|string',
+            'type' => 'required|integer',
         ]);
 
         Criteria::create([
             'name' => $request->name,
+            'code' => $request->code,
+            'type' => $request->type,
         ]);
 
         return redirect()->back()->with('success', 'Insert Data Criteria Success');
@@ -62,8 +66,7 @@ class CriteriaController extends Controller
             ]);
             return redirect(route('admin.subcriteria', $request->criteria_id))->with('success', 'Data berhasil disimpan');
         } else {
-            return redirect()->route('admin.subcriteria',$request->criteria_id)->with('error', 'Gagal ditambahkan');
-
+            return redirect()->route('admin.subcriteria', $request->criteria_id)->with('error', 'Gagal ditambahkan');
         }
     }
 
@@ -74,27 +77,29 @@ class CriteriaController extends Controller
             'h_criteria' => 'required|different:V_criteria',
             'value' => 'numeric',
         ]);
+        $cek_kriteria = Ratio_criteria::where('v_criteria_id', $request->v_criteria)
+            ->where('h_criteria_id', $request->h_criteria)
+            ->count();
 
-        if (Ratio_criteria::where('v_criteria_id', $request->v_criteria)
-                            ->where('h_criteria_id', $request->h_criteria)
-                            ->count()
-        ) {
+        if ($cek_kriteria > 0) {
             return redirect()->back()->with('success', 'Data Sudah Pernah disimpan');
-        } else {
-            return redirect()->back()->with('serror', 'Data gagal disimpan');
         }
+        // else {
+        //     return redirect()->back()->with('error', 'Data gagal disimpan');
+        // }
 
         Ratio_criteria::create(
             [
                 'v_criteria_id' => $request->v_criteria,
                 'h_criteria_id' => $request->h_criteria,
                 'value' => $request->value,
-            ]);
+            ]
+        );
         Ratio_criteria::create([
-                'h_criteria_id' => $request->v_criteria,
-                'v_criteria_id' => $request->h_criteria,
-                'value' => (1 / $request->value),
-            ]);
+            'h_criteria_id' => $request->v_criteria,
+            'v_criteria_id' => $request->h_criteria,
+            'value' => (1 / $request->value),
+        ]);
 
         return redirect()->back()->with('success', 'Input Data Sukses');
     }
@@ -108,21 +113,23 @@ class CriteriaController extends Controller
                 continue;
             }
             Ratio_criteria::where([
-                    ['h_criteria_id', '=', $keyID],
-                    ['v_criteria_id', '=', $rowID],
-                ])->update([
-                    'value' => $value,
-                ]);
+                ['h_criteria_id', '=', $keyID],
+                ['v_criteria_id', '=', $rowID],
+            ])->update([
+                'value' => $value,
+            ]);
             Ratio_criteria::where([
-                    ['h_criteria_id', '=', $rowID],
-                    ['v_criteria_id', '=', $keyID],
-                ])->update([
-                    'value' => (1 / $value),
-                ]);
+                ['h_criteria_id', '=', $rowID],
+                ['v_criteria_id', '=', $keyID],
+            ])->update([
+                'value' => (1 / $value),
+            ]);
         }
 
         return redirect()->back()->with('success', 'Input Data Sukses');
     }
+
+
 
     public function destroy(Criteria $criteria)
     {
