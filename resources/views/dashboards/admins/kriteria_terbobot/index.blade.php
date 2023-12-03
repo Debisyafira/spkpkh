@@ -322,7 +322,7 @@
                                                     </td>
                                                 @endforeach
                                                 <td>{{ $si[$no] }}</td>
-                                                <td>{{ $kl[$no] }}</td>
+                                                <td>{{ round($kl[$no],3) }}</td>
                                                 <td>{{  array_search($kl[$no],$restRank) + 1 }}</td>
                                             </tr>
                                             @php
