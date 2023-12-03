@@ -23,6 +23,7 @@ class KriteriaTerbobotController extends Controller
         $sumValues = PkhCriteria::select('criteria_id', \DB::raw('SUM(value) as sum'))
         ->groupBy('criteria_id')
         ->get();
+        // dd($sumValues);
         // foreach ($calonPkhs as $cpkh) {
         //     echo $cpkh->nama;
         //     print_r($cpkh->pkhSubcriteria);
