@@ -23,7 +23,10 @@ class KriteriaTerbobotController extends Controller
         $sumValues = PkhCriteria::select('criteria_id', \DB::raw('SUM(value) as sum'))
         ->groupBy('criteria_id')
         ->get();
-        // dd($sumValues);
+        $sumValuesCost = PkhCriteria::select('criteria_id', \DB::raw('SUM(1/value) as sum'))
+        ->groupBy('criteria_id')
+        ->get();
+
         // foreach ($calonPkhs as $cpkh) {
         //     echo $cpkh->nama;
         //     print_r($cpkh->pkhSubcriteria);
@@ -32,6 +35,6 @@ class KriteriaTerbobotController extends Controller
 
         // exit;
 
-        return view('dashboards.admins.kriteria_terbobot.index', compact('data', 'criteria', 'calonPkhs', 'minimumValues', 'maxValues', 'sumValues'));
+        return view('dashboards.admins.kriteria_terbobot.index', compact('data', 'criteria', 'calonPkhs', 'minimumValues', 'maxValues', 'sumValues','sumValuesCost'));
     }
 }

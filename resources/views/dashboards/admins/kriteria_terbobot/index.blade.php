@@ -26,7 +26,6 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-
                         <div class="table-responsive">
                             <table id="zero_config" class="table border table-striped table-bordered text-nowrap">
                                 <thead>
@@ -54,11 +53,11 @@
                                                         ->pluck('value')
                                                         ->first();
                                                     $nilai[$crit->id]['type'] = false;
-                                                    $nilai[$crit->id]['sum'] = $sumValues
+                                                    $nilai[$crit->id]['sum'] = $sumValuesCost
                                                         ->where('criteria_id', $crit->id)
                                                         ->pluck('sum')
                                                         ->first();
-                                                    $nilai[$crit->id]['sum'] = (int) $nilai[$crit->id]['sum'] + (int) $nilai[$crit->id]['val'];
+                                                    $nilai[$crit->id]['sum'] = (float) $nilai[$crit->id]['sum'] + (1 / (float) $nilai[$crit->id]['val']);
                                                     $nilai[$crit->id]['bantu'] = 1 / $nilai[$crit->id]['val'];
                                                 }
                                             @endphp
@@ -78,7 +77,6 @@
                                     @endphp
                                     @foreach ($calonPkhs as $item)
                                         @if (isset($item->Subcriterias[0]))
-                                            {{-- @dd($item->Subcriterias) --}}
                                             <tr data-id="cpkh{{ $no }}">
                                                 <td>A{{ $no }} ({{ $item->nama }})</td>
                                                 @foreach ($item->Subcriterias as $sub)
@@ -105,9 +103,8 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-
                         <div class="table-responsive">
-                            <table id="zero_config" class="table border table-striped table-bordered text-nowrap">
+                        <table id="zero_config" class="table border table-striped table-bordered text-nowrap">
                                 <thead>
                                     <tr>
                                         <th scope="col">Normalisasi</th>
@@ -120,8 +117,15 @@
                                     <tr data-id="cpkh-0">
                                         <td>A0</td>
                                         @foreach ($nilai as $i => $nil)
-                                            
-                                            <td> {{ round($nil['val'] / $nilai[$i]['sum'], 2) }}</td>
+                                            @php
+                                                if($nilai[$i]['type']){
+                                                    $show = round($nil['val'] / $nilai[$i]['sum'], 3);
+                                                }
+                                                else{
+                                                    $show = round( 1 / $nil['val'] / $nilai[$i]['sum'], 3);
+                                                }
+                                            @endphp
+                                            <td>{{$show}}</td>
                                         @endforeach
 
                                     </tr>
@@ -137,7 +141,13 @@
                                                     {{-- dd($sub) --}}
                                                     <td>
                                                         @php
-                                                            echo round((float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 2);
+                                                         
+                                                            if( $nilai[$sub->criteria_id]['type']){
+                                                                echo round((float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 3);
+                                                            }
+                                                            else{
+                                                                echo round( 1 / (float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 3);
+                                                            }
                                                         @endphp
                                                     </td>
                                                 @endforeach
@@ -177,7 +187,12 @@
 
                                         @foreach ($nilai as $i => $nil)
                                             @php
-                                                $show = round($data->where('criteria_id', $i)->first()->average * round($nil['val'] / $nilai[$i]['sum'], 2),2);
+                                                if( $nilai[$i]['type']){
+                                                    $show = round($data->where('criteria_id', $i)->first()->average * round($nil['val'] / $nilai[$i]['sum'], 3), 3);
+                                                }
+                                                else{
+                                                    $show = round($data->where('criteria_id', $i)->first()->average * round(1 / $nil['val'] / $nilai[$i]['sum'], 3), 3);
+                                                }
                                                 $si['0'] += $show;
                                             @endphp
                                             <td>
@@ -187,6 +202,9 @@
                                     </tr>
                                     @php
                                         $no = 1;
+                                    @endphp
+                                    @php
+                                        $kl = [];
                                     @endphp
                                     @foreach ($calonPkhs as $item)
                                         @if (isset($item->Subcriterias[0]))
@@ -198,9 +216,14 @@
                                                 @foreach ($item->Subcriterias as $sub)
                                                     <td>
                                                         @php
-                                                            $show = round($data->where('criteria_id', $sub->criteria_id)->first()->average * round((float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 2),2);
+                                                            if( $nilai[$sub->criteria_id]['type']){
+                                                                $show = round($data->where('criteria_id', $sub->criteria_id)->first()->average * round((float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 3), 3);
+                                                            }
+                                                            else{
+                                                                $show = round($data->where('criteria_id', $sub->criteria_id)->first()->average * round( 1 / (float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 3), 3);
+                                                            }
                                                             $si[$no] += $show;
-                                                            $kl[$no] = $si[$no] / $si['0'];
+                                                            $kl[$no] =  $si['0'] / $si[$no];
                                                             echo $show;
                                                         @endphp
                                                     </td>
@@ -245,7 +268,12 @@
 
                                         @foreach ($nilai as $i => $nil)
                                             @php
-                                                $show = round($data->where('criteria_id', $i)->first()->average * round($nil['val'] / $nilai[$i]['sum'], 2),2);
+                                                if( $nilai[$i]['type']){
+                                                    $show = round($data->where('criteria_id', $i)->first()->average * round($nil['val'] / $nilai[$i]['sum'], 3), 3);
+                                                }
+                                                else{
+                                                    $show = round($data->where('criteria_id', $i)->first()->average * round(1 / $nil['val'] / $nilai[$i]['sum'], 3), 3);
+                                                }
                                                 $si['0'] += $show;
                                             @endphp
                                             <td>
@@ -267,6 +295,7 @@
                                     @php
                                         // Assuming $kl is the array containing the values to be ranked
                                         $rankedKl = collect($kl)->sortDesc();
+                                        $restRank =  array_values($rankedKl->toArray());
                                         $rank = 1;
                                     @endphp
 
@@ -279,17 +308,22 @@
                                                 @endphp
                                                 @foreach ($item->Subcriterias as $sub)
                                                     <td>
-                                                        @php
-                                                            $show = round($data->where('criteria_id', $sub->criteria_id)->first()->average * round((float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 2),2);
-                                                            $si[$no] += $show;
-                                                            $kl[$no] = $si[$no] / $si['0'];
-                                                            echo $show;
-                                                        @endphp
+                                                    @php
+                                                        if( $nilai[$sub->criteria_id]['type']){
+                                                            $show = round($data->where('criteria_id', $sub->criteria_id)->first()->average * round((float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 3), 3);
+                                                        }
+                                                        else{
+                                                            $show = round($data->where('criteria_id', $sub->criteria_id)->first()->average * round( 1 / (float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 3), 3);
+                                                        }
+                                                        $si[$no] += $show;
+                                                        $kln[$no] = $si['0'] / $si[$no] ;
+                                                        echo $show;
+                                                    @endphp
                                                     </td>
                                                 @endforeach
                                                 <td>{{ $si[$no] }}</td>
                                                 <td>{{ $kl[$no] }}</td>
-                                                <td>{{ $rankedKl->search($kl[$no]) }}</td>
+                                                <td>{{  array_search($kl[$no],$restRank) + 1 }}</td>
                                             </tr>
                                             @php
                                                 $no++;
