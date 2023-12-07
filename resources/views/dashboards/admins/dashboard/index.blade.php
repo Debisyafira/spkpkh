@@ -1,4 +1,4 @@
-@extends('dashboards.admins.layouts.admin-dash-layout')
+@extends('layouts.pkmpkh')
 @section('title', 'Dashboard')
 
 @section('content')

@@ -1,6 +1,5 @@
-@extends('dashboards.admins.layouts.admin-dash-layout')
+@extends('layouts.pkmpkh')
 @section('title', 'Data Kriteria Terbobot')
-
 @section('content')
     <div class="page-breadcrumb">
         <div class="row">
@@ -57,7 +56,7 @@
                                                         ->where('criteria_id', $crit->id)
                                                         ->pluck('sum')
                                                         ->first();
-                                                    $nilai[$crit->id]['sum'] = (float) $nilai[$crit->id]['sum'] + (1 / (float) $nilai[$crit->id]['val']);
+                                                    $nilai[$crit->id]['sum'] = (float) $nilai[$crit->id]['sum'] + 1 / (float) $nilai[$crit->id]['val'];
                                                     $nilai[$crit->id]['bantu'] = 1 / $nilai[$crit->id]['val'];
                                                 }
                                             @endphp
@@ -104,7 +103,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                        <table id="zero_config" class="table border table-striped table-bordered text-nowrap">
+                            <table id="zero_config" class="table border table-striped table-bordered text-nowrap">
                                 <thead>
                                     <tr>
                                         <th scope="col">Normalisasi</th>
@@ -118,14 +117,13 @@
                                         <td>A0</td>
                                         @foreach ($nilai as $i => $nil)
                                             @php
-                                                if($nilai[$i]['type']){
+                                                if ($nilai[$i]['type']) {
                                                     $show = round($nil['val'] / $nilai[$i]['sum'], 3);
-                                                }
-                                                else{
-                                                    $show = round( 1 / $nil['val'] / $nilai[$i]['sum'], 3);
+                                                } else {
+                                                    $show = round(1 / $nil['val'] / $nilai[$i]['sum'], 3);
                                                 }
                                             @endphp
-                                            <td>{{$show}}</td>
+                                            <td>{{ $show }}</td>
                                         @endforeach
 
                                     </tr>
@@ -141,12 +139,11 @@
                                                     {{-- dd($sub) --}}
                                                     <td>
                                                         @php
-                                                         
-                                                            if( $nilai[$sub->criteria_id]['type']){
+
+                                                            if ($nilai[$sub->criteria_id]['type']) {
                                                                 echo round((float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 3);
-                                                            }
-                                                            else{
-                                                                echo round( 1 / (float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 3);
+                                                            } else {
+                                                                echo round(1 / (float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 3);
                                                             }
                                                         @endphp
                                                     </td>
@@ -187,10 +184,9 @@
 
                                         @foreach ($nilai as $i => $nil)
                                             @php
-                                                if( $nilai[$i]['type']){
+                                                if ($nilai[$i]['type']) {
                                                     $show = round($data->where('criteria_id', $i)->first()->average * round($nil['val'] / $nilai[$i]['sum'], 3), 3);
-                                                }
-                                                else{
+                                                } else {
                                                     $show = round($data->where('criteria_id', $i)->first()->average * round(1 / $nil['val'] / $nilai[$i]['sum'], 3), 3);
                                                 }
                                                 $si['0'] += $show;
@@ -216,14 +212,13 @@
                                                 @foreach ($item->Subcriterias as $sub)
                                                     <td>
                                                         @php
-                                                            if( $nilai[$sub->criteria_id]['type']){
+                                                            if ($nilai[$sub->criteria_id]['type']) {
                                                                 $show = round($data->where('criteria_id', $sub->criteria_id)->first()->average * round((float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 3), 3);
-                                                            }
-                                                            else{
-                                                                $show = round($data->where('criteria_id', $sub->criteria_id)->first()->average * round( 1 / (float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 3), 3);
+                                                            } else {
+                                                                $show = round($data->where('criteria_id', $sub->criteria_id)->first()->average * round(1 / (float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 3), 3);
                                                             }
                                                             $si[$no] += $show;
-                                                            $kl[$no] =  $si['0'] / $si[$no];
+                                                            $kl[$no] = $si['0'] / $si[$no];
                                                             echo $show;
                                                         @endphp
                                                     </td>
@@ -268,10 +263,9 @@
 
                                         @foreach ($nilai as $i => $nil)
                                             @php
-                                                if( $nilai[$i]['type']){
+                                                if ($nilai[$i]['type']) {
                                                     $show = round($data->where('criteria_id', $i)->first()->average * round($nil['val'] / $nilai[$i]['sum'], 3), 3);
-                                                }
-                                                else{
+                                                } else {
                                                     $show = round($data->where('criteria_id', $i)->first()->average * round(1 / $nil['val'] / $nilai[$i]['sum'], 3), 3);
                                                 }
                                                 $si['0'] += $show;
@@ -295,7 +289,7 @@
                                     @php
                                         // Assuming $kl is the array containing the values to be ranked
                                         $rankedKl = collect($kl)->sortDesc();
-                                        $restRank =  array_values($rankedKl->toArray());
+                                        $restRank = array_values($rankedKl->toArray());
                                         $rank = 1;
                                     @endphp
 
@@ -308,22 +302,21 @@
                                                 @endphp
                                                 @foreach ($item->Subcriterias as $sub)
                                                     <td>
-                                                    @php
-                                                        if( $nilai[$sub->criteria_id]['type']){
-                                                            $show = round($data->where('criteria_id', $sub->criteria_id)->first()->average * round((float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 3), 3);
-                                                        }
-                                                        else{
-                                                            $show = round($data->where('criteria_id', $sub->criteria_id)->first()->average * round( 1 / (float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 3), 3);
-                                                        }
-                                                        $si[$no] += $show;
-                                                        $kln[$no] = $si['0'] / $si[$no] ;
-                                                        echo $show;
-                                                    @endphp
+                                                        @php
+                                                            if ($nilai[$sub->criteria_id]['type']) {
+                                                                $show = round($data->where('criteria_id', $sub->criteria_id)->first()->average * round((float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 3), 3);
+                                                            } else {
+                                                                $show = round($data->where('criteria_id', $sub->criteria_id)->first()->average * round(1 / (float) $sub->nilai / (float) $nilai[$sub->criteria_id]['sum'], 3), 3);
+                                                            }
+                                                            $si[$no] += $show;
+                                                            $kln[$no] = $si['0'] / $si[$no];
+                                                            echo $show;
+                                                        @endphp
                                                     </td>
                                                 @endforeach
                                                 <td>{{ $si[$no] }}</td>
-                                                <td>{{ round($kl[$no],3) }}</td>
-                                                <td>{{  array_search($kl[$no],$restRank) + 1 }}</td>
+                                                <td>{{ round($kl[$no], 3) }}</td>
+                                                <td>{{ array_search($kl[$no], $restRank) + 1 }}</td>
                                             </tr>
                                             @php
                                                 $no++;
@@ -339,20 +332,19 @@
         </div>
     </div>
     </div>
+@endsection
 
+@section('css')
+    {{-- Custom CSS lain --}}
+    <link rel="stylesheet" href="{{ asset('assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/extra-libs/datatables.net-bs4/css/responsive.dataTables.min.css') }}">
+    {{-- Custom plugin --}}
+    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
+@endsection
 
-
-
-    <link rel="stylesheet" href="../assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css">
-    <link rel="stylesheet" href="../assets/extra-libs/datatables.net-bs4/css/responsive.dataTables.min.css">
-    <!-- Custom CSS -->
-    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-
-
-    <!--This page plugins -->
-    <script src="../assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js"></script>
-    <script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
-
-
+@section('js')
+    {{-- This page plugins --}}
+    <script src="{{ asset('assets/extra-libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('dist/js/pages/datatable/datatable-basic.init.js') }}"></script>
 @endsection
