@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KriteriaTerbobotController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\PkhController;
 use App\Http\Controllers\RatioCriteriaController;
 use App\Http\Controllers\SubKriteriaController;
@@ -36,8 +37,16 @@ Auth::routes();
 // Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin', 'auth', 'PreventBackHistory']], function () {
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('user', [AdminController::class, 'users'])->name('admin.user');
+    Route::get('user/{id}', [AdminController::class, 'edit'])->name('admin.user.edit');
+    Route::put('user/{id}', [AdminController::class, 'update'])->name('admin.user.update');
+    Route::delete('user/delete', [AdminController::class, 'destroy'])->name('admin.user.delete');
+    Route::get('log', [LogController::class, 'index'])->name('admin.log');
+    Route::get('log/{id}', [LogController::class, 'show'])->name('admin.log.show');
+    Route::delete('log/delete', [LogController::class, 'destroy'])->name('admin.log.destroy');
+    Route::get('log/truncate', [LogController::class, 'truncate'])->name('admin.log.truncate');
+
     // Route::get('profile', [AdminController::class, 'profile'])->name('admin.profile');
-    // Route::get('user', [AdminController::class, 'user'])->name('admin.user');
 
     // PKH
     Route::get('pkh', [PkhController::class, 'index'])->name('admin.pkh');
@@ -65,7 +74,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::post('/massRatioCriteria', [CriteriaController::class, 'massUpdate'])->name('admin.massRatioCriteria');
     Route::get('/editRatioCriteria', [RatioCriteriaController::class, 'edit'])->name('admin.editRatioCriteria');
     Route::get('/deleteRatioCriteria/{v_id}/{h_id}', [RatioCriteriaController::class, 'destroy'])->name('admin.deleteRatioCriteria');
-    // End Kriteria
 
     // Kriteria terbobot
     Route::get('data-kriteria', [KriteriaTerbobotController::class, 'index'])->name('admin.dataCriteria');
