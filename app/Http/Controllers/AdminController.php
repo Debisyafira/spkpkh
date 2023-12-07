@@ -18,12 +18,6 @@ class AdminController extends Controller
 
     public function index()
     {
-        $count = Calon_pkh::count();
-        return view('dashboards.admins.dashboard.index', compact('count'));
-    }
-
-    public function users()
-    {
         $users = User::all();
         return view('users.index', compact('users'));
     }

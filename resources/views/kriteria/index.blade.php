@@ -50,7 +50,9 @@
                                     <th scope="col">Nama</th>
                                     <th scope="col">Kode</th>
                                     <th scope="col">Type</th>
-                                    <th scope="col">Aksi</th>
+                                    @can('isUser')
+                                        <th scope="col">Aksi</th>
+                                    @endcan
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,13 +64,14 @@
                                         </td>
                                         <td>{{ $criteria['code'] }}</td>
                                         <td>{{ $criteria['type'] ? 'Benefit' : 'Cost' }}</td>
-                                        <td>
-                                            <a href="{{ route('admin.deleteCriteria', ['criteria' => $criteria['id']]) }}"
-                                                class="btn btn-danger btn-circle">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-                                        </td>
-
+                                        @can('isUser')
+                                            <td>
+                                                <a href="{{ route('admin.deleteCriteria', ['criteria' => $criteria['id']]) }}"
+                                                    class="btn btn-danger btn-circle">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        @endcan
                                     </tr>
                                 @endforeach
                             </tbody>

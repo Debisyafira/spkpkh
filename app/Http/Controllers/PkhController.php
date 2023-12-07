@@ -17,14 +17,14 @@ class PkhController extends Controller
         // $count = Calon_pkh::count();
 
         // dd($data);
-        return view('dashboards.admins.pkh.index', compact('data'));
+        return view('pkh.index', compact('data'));
     }
 
     public function create()
     {
         $criterias = Criteria::all();
 
-        return view('dashboards.admins.pkh.add', compact('criterias'));
+        return view('pkh.add', compact('criterias'));
     }
 
     public function store(Request $request)
@@ -64,9 +64,7 @@ class PkhController extends Controller
     {
         $data = Calon_pkh::where('id', $req->id)->first();
         $criterias = Criteria::get();
-        // dd($criterias[0]->subCriteria);
-
-        return view('dashboards.admins.pkh.edit', compact('data', 'criterias'));
+        return view('pkh.edit', compact('data', 'criterias'));
     }
 
     public function update(Request $request)
