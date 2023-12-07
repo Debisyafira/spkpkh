@@ -6,6 +6,7 @@ use App\Models\Calon_pkh;
 use App\Models\Criteria;
 use App\Models\kriteria_terbobot;
 use App\Models\PkhCriteria;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class KriteriaTerbobotController extends Controller
 {
@@ -15,26 +16,44 @@ class KriteriaTerbobotController extends Controller
         $criteria = Criteria::all();
         $calonPkhs = Calon_pkh::all();
         $minimumValues = PkhCriteria::select('criteria_id', \DB::raw('MIN(value) as value'))
-        ->groupBy('criteria_id')
-        ->get();
+            ->groupBy('criteria_id')
+            ->get();
         $maxValues = PkhCriteria::select('criteria_id', \DB::raw('MAX(value) as value'))
-        ->groupBy('criteria_id')
-        ->get();
+            ->groupBy('criteria_id')
+            ->get();
         $sumValues = PkhCriteria::select('criteria_id', \DB::raw('SUM(value) as sum'))
-        ->groupBy('criteria_id')
-        ->get();
+            ->groupBy('criteria_id')
+            ->get();
         $sumValuesCost = PkhCriteria::select('criteria_id', \DB::raw('SUM(1/value) as sum'))
-        ->groupBy('criteria_id')
-        ->get();
+            ->groupBy('criteria_id')
+            ->get();
+        return view('kriteria_terbobot.index', compact('data', 'criteria', 'calonPkhs', 'minimumValues', 'maxValues', 'sumValues', 'sumValuesCost'));
+    }
 
-        // foreach ($calonPkhs as $cpkh) {
-        //     echo $cpkh->nama;
-        //     print_r($cpkh->pkhSubcriteria);
-        //     echo '<br/>=============<br/>';
-        // }
+    public function export()
+    {
+        /// TOLONG EDIT DULU TAMPILANNYA BUAT LAYOUT PDF, AKU MAGER :)
+        $data = Kriteria_terbobot::get();
+        $criteria = Criteria::all();
+        $calonPkhs = Calon_pkh::all();
+        $minimumValues = PkhCriteria::select('criteria_id', \DB::raw('MIN(value) as value'))
+            ->groupBy('criteria_id')
+            ->get();
+        $maxValues = PkhCriteria::select('criteria_id', \DB::raw('MAX(value) as value'))
+            ->groupBy('criteria_id')
+            ->get();
+        $sumValues = PkhCriteria::select('criteria_id', \DB::raw('SUM(value) as sum'))
+            ->groupBy('criteria_id')
+            ->get();
+        $sumValuesCost = PkhCriteria::select('criteria_id', \DB::raw('SUM(1/value) as sum'))
+            ->groupBy('criteria_id')
+            ->get();
 
-        // exit;
+        // JIKA TAMPILAN UDAH BERES UN-COMMENT PERINTAH DI BAWAH INI, LALU HAPUS BAGIAN VIEW DI PALING BAWAH.
+        // $pdf = PDF::loadView('kriteria_terbobot.pdf', compact('data', 'criteria', 'calonPkhs', 'minimumValues', 'maxValues', 'sumValues', 'sumValuesCost'));
+        // KEMUDIAN BUKA FILE PDFNYA DI BROWSER
+        // return $pdf->stream();
 
-        return view('dashboards.admins.kriteria_terbobot.index', compact('data', 'criteria', 'calonPkhs', 'minimumValues', 'maxValues', 'sumValues','sumValuesCost'));
+        return view('kriteria_terbobot.pdf', compact('data', 'criteria', 'calonPkhs', 'minimumValues', 'maxValues', 'sumValues', 'sumValuesCost'));
     }
 }

@@ -27,7 +27,7 @@ class CriteriaController extends Controller
         }
 
         // dd($data);
-        return view('dashboards.admins.kriteria.criteria')->with('data', $data);
+        return view('kriteria.index')->with('data', $data);
     }
 
     /**

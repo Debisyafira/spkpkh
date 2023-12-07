@@ -4,25 +4,27 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li class="sidebar-item"> <a class="sidebar-link sidebar-link active" href="{{ route('admin.dashboard') }}"
+                <li class="sidebar-item"> <a class="sidebar-link sidebar-link active" href="{{ route('home') }}"
                         aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                             class="hide-menu">Dashboard</span></a></li>
-                <li class="list-divider"></li>
-                <li class="nav-small-cap"><span class="hide-menu">Management</span></li>
-                <li class="sidebar-item">
-                    <a href="javascript:void(0)" class="sidebar-link has-arrow" aria-expanded="false">
-                        <i data-feather="shield" class="feather-icon"></i>
-                        <span class="hide-menu">Users</span>
-                    </a>
-                    <ul aria-expanded="false" class="collapse first-level base-level-line">
-                        <li class="sidebar-item"><a href="{{ route('admin.user') }}" class="sidebar-link"><span
-                                    class="hide-menu">User
-                                    Management</span></a></li>
-                        <li class="sidebar-item"><a href="{{ route('admin.log') }}" class="sidebar-link"><span
-                                    class="hide-menu">User
-                                    Logs</span></a></li>
-                    </ul>
-                </li>
+                @can('isAdmin')
+                    <li class="list-divider"></li>
+                    <li class="nav-small-cap"><span class="hide-menu">Management</span></li>
+                    <li class="sidebar-item">
+                        <a href="javascript:void(0)" class="sidebar-link has-arrow" aria-expanded="false">
+                            <i data-feather="shield" class="feather-icon"></i>
+                            <span class="hide-menu">Users</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level base-level-line">
+                            <li class="sidebar-item"><a href="{{ route('admin.user') }}" class="sidebar-link"><span
+                                        class="hide-menu">User
+                                        Management</span></a></li>
+                            <li class="sidebar-item"><a href="{{ route('admin.log') }}" class="sidebar-link"><span
+                                        class="hide-menu">User
+                                        Logs</span></a></li>
+                        </ul>
+                    </li>
+                @endcan
 
 
                 <li class="list-divider"></li>
@@ -46,7 +48,6 @@
                         </li>
                     </ul>
                 </li>
-
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
                         aria-expanded="false"><i data-feather="file-plus" class="feather-icon"></i><span
                             class="hide-menu">Calon KPM PKH</span></a>
@@ -62,7 +63,7 @@
                             class="hide-menu">
                             Metode ARAS</span></a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                        <li class="sidebar-item"><a href="{{ route('admin.dataCriteria') }}" class="sidebar-link"><span
+                        <li class="sidebar-item"><a href="{{ route('dataCriteria') }}" class="sidebar-link"><span
                                     class="hide-menu"> penilaian
                                 </span></a>
                         </li>
