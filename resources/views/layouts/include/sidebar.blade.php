@@ -7,16 +7,27 @@
                 <li class="sidebar-item"> <a class="sidebar-link sidebar-link active" href="{{ route('admin.dashboard') }}"
                         aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                             class="hide-menu">Dashboard</span></a></li>
-                {{-- <li class="list-divider"></li> --}}
-                {{-- <li class="nav-small-cap"><span class="hide-menu">User Management</span></li>
-                <li class="sidebar-item"> <a class="sidebar-link" href="{{ route('admin.user') }}"
-                        aria-expanded="false"><i data-feather="shield" class="feather-icon"></i><span
-                            class="hide-menu">Hak Akses
-                        </span></a>
-                </li> --}}
+                <li class="list-divider"></li>
+                <li class="nav-small-cap"><span class="hide-menu">Management</span></li>
+                <li class="sidebar-item">
+                    <a href="javascript:void(0)" class="sidebar-link has-arrow" aria-expanded="false">
+                        <i data-feather="shield" class="feather-icon"></i>
+                        <span class="hide-menu">Users</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse first-level base-level-line">
+                        <li class="sidebar-item"><a href="{{ route('admin.user') }}" class="sidebar-link"><span
+                                    class="hide-menu">User
+                                    Management</span></a></li>
+                        <li class="sidebar-item"><a href="{{ route('admin.log') }}" class="sidebar-link"><span
+                                    class="hide-menu">User
+                                    Logs</span></a></li>
+                    </ul>
+                </li>
+
+
                 <li class="list-divider"></li>
                 <li class="nav-small-cap">
-                    <span class="hide-menu">Components</span>
+                    <span class="hide-menu">Features</span>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">

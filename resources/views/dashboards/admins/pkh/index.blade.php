@@ -71,12 +71,8 @@
                                         </tr>
                                         <script>
                                             function destroy(id) {
-
-                                                console.log("iko se nyo?", id);
-
                                                 if (confirm('Anda yakin ingin menghapus data ?')) {
                                                     $.ajax({
-
                                                         url: "{{ route('admin.pkh.delete') }}?id=" + id,
                                                         type: 'DELETE',
                                                         // headers: {
