@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Calon_pkh;
 use App\Models\Criteria;
+use Illuminate\Support\Facades\Gate;
 
 class HomeController extends Controller
 {
@@ -26,8 +27,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (Gate::allows('isAdmin')) {
+            $count = Calon_pkh::count();
+            return view('dashboard.index', compact('count'));
+        }
+
         $count = Calon_pkh::count();
         $count = Criteria::count();
-        return view('dashboards.admins.dashboard.index', compact('count'));
+        return view('dashboard.index', compact('count'));
     }
 }

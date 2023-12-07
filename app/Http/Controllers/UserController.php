@@ -8,10 +8,6 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    public function index(){
-        $log = Log::all();
-    }
-
     public function dashboard()
     {
         return view('dashboards.admins.dashboard.index');

@@ -36,8 +36,7 @@ Auth::routes();
 // ADMIN
 // Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin', 'auth', 'PreventBackHistory']], function () {
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
-    Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-    Route::get('user', [AdminController::class, 'users'])->name('admin.user');
+    Route::get('user', [AdminController::class, 'index'])->name('admin.user');
     Route::get('user/{id}', [AdminController::class, 'edit'])->name('admin.user.edit');
     Route::put('user/{id}', [AdminController::class, 'update'])->name('admin.user.update');
     Route::delete('user/delete', [AdminController::class, 'destroy'])->name('admin.user.delete');
@@ -76,7 +75,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('/deleteRatioCriteria/{v_id}/{h_id}', [RatioCriteriaController::class, 'destroy'])->name('admin.deleteRatioCriteria');
 
     // Kriteria terbobot
-    Route::get('data-kriteria', [KriteriaTerbobotController::class, 'index'])->name('admin.dataCriteria');
+    Route::get('data-kriteria', [KriteriaTerbobotController::class, 'index'])->name('dataCriteria');
+    Route::get('data-kriteria/download', [KriteriaTerbobotController::class, 'export'])->name('dataCriteria.export');
+    Route::get('data-kriteria/preview-download', [KriteriaTerbobotController::class, 'preview'])->name('dataCriteria.preview');
 
     // data sub kriteria
     // Route::get('/subkriteria/{criteria}/create', SubKriteriaController::class)->name('subkriteria.create');

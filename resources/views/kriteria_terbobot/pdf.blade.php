@@ -1,27 +1,27 @@
-@extends('layouts.pkmpkh')
-@section('title', 'Data Kriteria Terbobot')
-@section('content')
-    <div class="page-breadcrumb">
-        <div class="row">
-            <div class="col-7 align-self-center">
-                <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Data Kriteria Terbobot</h4>
-                <div class="d-flex align-items-center">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb m-0 p-0">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-muted">Home</a>
-                            </li>
-                            <li class="breadcrumb-item text-muted active" aria-current="page">Data Kriteria Terbobot
-                                Berdasar Benefit &
-                                Cost</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <title>Data Kriteria Terbobot</title>
+
+    {{-- Custom CSS lain --}}
+    <link rel="stylesheet" href="{{ asset('assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/extra-libs/datatables.net-bs4/css/responsive.dataTables.min.css') }}">
+    {{-- Custom plugin --}}
+    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
+</head>
+
+<body>
     <div class="container-fluid">
         <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="{{ route('dataCriteria.preview') }}" class="btn btn-success">Export Data</a>
+                    </div>
+                </div>
+            </div>
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
@@ -331,20 +331,11 @@
             </div>
         </div>
     </div>
-    </div>
-@endsection
 
-@section('css')
-    {{-- Custom CSS lain --}}
-    <link rel="stylesheet" href="{{ asset('assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/extra-libs/datatables.net-bs4/css/responsive.dataTables.min.css') }}">
-    {{-- Custom plugin --}}
-    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
-@endsection
-
-@section('js')
     {{-- This page plugins --}}
     <script src="{{ asset('assets/extra-libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/datatable/datatable-basic.init.js') }}"></script>
-@endsection
+</body>
+
+</html>

@@ -39,17 +39,15 @@ class RatioCriteriaController extends Controller
             return redirect('criteria')->with(['message' => "data belum lengkap"]);
             $data = null;
         }
-        return view('dashboards.admins.kriteria.ratioCriteria')->with('data', $data);
+        return view('kriteria.ratioCriteria')->with('data', $data);
     }
 
     public function save(Request $request)
     {
-        // dd($request);
         $success = false;
         foreach ($request->total_eigen as $key => $tot) {
             $name = Str::remove("'", $key);
             $criteria = Criteria::where('name', $name)->first();
-            // dd($criteria);
             if ($criteria !== null) {
                 $kriteria_terbobot_check = kriteria_terbobot::where('criteria_id', $criteria->id)->first();
                 if ($kriteria_terbobot_check == null) {

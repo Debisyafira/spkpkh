@@ -12,7 +12,7 @@ class SubkriteriaController extends Controller
     {
         $criteria = Criteria::find($id);
         $subcriteria = Subkriteria::where('criteria_id', $id)->get();
-        return view('dashboards.admins.subkriteria.index', compact('criteria', 'subcriteria'));
+        return view('subkriteria.index', compact('criteria', 'subcriteria'));
     }
 
     public function store(Request $request)
