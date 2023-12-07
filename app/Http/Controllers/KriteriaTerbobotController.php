@@ -6,6 +6,7 @@ use App\Models\Calon_pkh;
 use App\Models\Criteria;
 use App\Models\kriteria_terbobot;
 use App\Models\PkhCriteria;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class KriteriaTerbobotController extends Controller
 {
@@ -47,6 +48,11 @@ class KriteriaTerbobotController extends Controller
         $sumValuesCost = PkhCriteria::select('criteria_id', \DB::raw('SUM(1/value) as sum'))
             ->groupBy('criteria_id')
             ->get();
+
+        // JIKA TAMPILAN UDAH BERES UN-COMMENT PERINTAH DI BAWAH INI, LALU HAPUS BAGIAN VIEW DI PALING BAWAH.
+        // $pdf = PDF::loadView('kriteria_terbobot.pdf', compact('data', 'criteria', 'calonPkhs', 'minimumValues', 'maxValues', 'sumValues', 'sumValuesCost'));
+        // KEMUDIAN BUKA FILE PDFNYA DI BROWSER
+        // return $pdf->stream();
 
         return view('kriteria_terbobot.pdf', compact('data', 'criteria', 'calonPkhs', 'minimumValues', 'maxValues', 'sumValues', 'sumValuesCost'));
     }
