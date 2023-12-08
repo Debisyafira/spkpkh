@@ -133,26 +133,26 @@
                                         <td>{{ $ratio['h_name'] }}</td>
                                         <td>{{ $ratio['value'] }}</td>
                                         <td>
-                                            <div class="d-flex gap-2">
+                                            {{-- <div class="d-flex gap-2">
                                                 <a href="{{ route('admin.deleteRatioCriteria', ['v_id' => $ratio['v_id'], 'h_id' => $ratio['h_id']]) }}"
                                                     class="btn btn-danger btn-circle">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                                {{-- <a href="{{ route('admin.editRatioCriteria', ['id' => $ratio['id']]) }}"
-                                                    class="btn btn-info btn-circle">
-                                                    <i class="fas fa-edit"></i>
-                                                </a> --}}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                                    <i class="fas fa-trash"></i> --}}
+                                            </a>
+                                            <a href="{{ route('admin.editRatioCriteria', ['id' => $ratio['id']]) }}"
+                                                class="btn btn-info btn-circle">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
                     </div>
+                    </td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+                    </table>
                 </div>
-
             </div>
+
         </div>
+    </div>
     </div>
     <!-- /.container-fluid -->
 @endsection
