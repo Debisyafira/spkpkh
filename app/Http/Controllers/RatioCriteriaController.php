@@ -275,9 +275,7 @@ class RatioCriteriaController extends Controller
             'criteria' => $criteria,
             'ratio' => $ratio,
         ];
-        // dd($criterias[0]->subCriteria);
-        // dd($data);
-        return view('dashboards.admins.kriteria.edit_ratio', compact('data'));
+        return view('kriteria.edit_ratio', compact('data'));
     }
 
     public function updateRatio(Request $request)

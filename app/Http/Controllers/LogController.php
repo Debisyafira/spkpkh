@@ -7,27 +7,28 @@ use Illuminate\Http\Request;
 
 class LogController extends Controller
 {
-    function index()
+    public function index()
     {
         $logs = Log::with('user')->orderBy('log_date', 'desc')->paginate(20);
         return view('log.index', compact('logs'));
     }
 
-    function show($id)
+    public function show($id)
     {
-        $log = Log::with('user')->find($id);
+        $log = Log::with('user')->findOrFail($id);
         return view('log.detail', compact('log'));
     }
 
-    function destroy(Request $request)
+    public function destroy(Request $request)
     {
-        Log::findOrFail($request->id);
-        return redirect()->route('admin.log')->with('success', 'Log telah dihapus!');
+        $log = Log::findOrFail($request->id);
+        $log->delete();
+        return redirect()->route('log.index')->with('success', 'Log telah dihapus!');
     }
 
-    function truncate()
+    public function prune()
     {
         Log::truncate();
-        return redirect()->route('admin.log')->with('success', 'Log telah dibersihkan!');
+        return redirect()->route('log.index')->with('success', 'Log telah dibersihkan!');
     }
 }

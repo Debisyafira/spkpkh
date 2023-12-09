@@ -25,7 +25,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <a href="{{ route('dataCriteria.preview')}}" class="btn btn-success">Export Data</a>
+                        <a href="{{ route('dataCriteria.export')}}" class="btn btn-success">Export Data</a>
                     </div>
                 </div>
             </div>

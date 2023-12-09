@@ -21,7 +21,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <a href="{{ route('admin.log.truncate') }}" class="btn btn-danger">Truncate logs</a>
+                        <a href="{{ route('log.prune') }}" class="btn btn-danger">Truncate logs</a>
                         {{-- Alerting --}}
                         @if (session('success'))
                             <div class="alert alert-success">{{ session('success') }}</div>
@@ -44,16 +44,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($logs as $log)
+                                @forelse ($logs as $log)
                                     <tr>
                                         <td scope="row">{{ $loop->iteration }}</td>
                                         <td scope="row">{{ $log->user_id }}</td>
-                                        <td scope="row">{{ $log->user->role->name }}</td>
+                                        <td scope="row">{{ $log->user->role->name ?? '' }}</td>
                                         <td scope="row">{{ $log->log_date }}</td>
                                         <td scope="row">{{ $log->log_type }}</td>
                                         <td scope="row">{{ $log->table_name }}</td>
                                         <td scope="row">
-                                            <a href="{{ route('admin.log.show', ['id' => $log->id]) }}"
+                                            <a href="{{ route('log.show', ['id' => $log->id]) }}"
                                                 class="btn btn-success btn-sm">Show</a>
                                             <button onclick="destroy({{ $log->id }})"
                                                 class="btn btn-danger btn-sm">Delete</button>
@@ -63,7 +63,7 @@
                                         function destroy(id) {
                                             if (confirm('Anda yakin ingin menghapus data ?')) {
                                                 $.ajax({
-                                                    url: "{{ route('admin.log.destroy') }}?id=" + id,
+                                                    url: "{{ route('log.destroy') }}?id=" + id,
                                                     type: 'DELETE',
                                                     data: {
                                                         "_token": "{{ csrf_token() }}",
@@ -83,9 +83,13 @@
                                             }
                                         }
                                     </script>
-                                @endforeach
+                                @empty
+                                @endforelse
                             </tbody>
                         </table>
+                    </div>
+                    <div class="row">
+                        {!! $logs->links() !!}
                     </div>
                 </div>
             </div>
