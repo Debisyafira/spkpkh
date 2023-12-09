@@ -18,13 +18,6 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <a href="{{ route('dataCriteria.preview') }}" class="btn btn-success">Export Data</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
                         <div class="table-responsive">
                             <table id="zero_config" class="table border table-striped table-bordered text-nowrap">
                                 <thead>
@@ -239,7 +232,6 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-
                         <div class="table-responsive">
                             <table id="zero_config" class="table border table-striped table-bordered text-nowrap">
                                 <thead>
@@ -326,6 +318,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        
                     </div>
                 </div>
             </div>

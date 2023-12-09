@@ -77,7 +77,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     // Kriteria terbobot
     Route::get('data-kriteria', [KriteriaTerbobotController::class, 'index'])->name('dataCriteria');
     Route::get('data-kriteria/download', [KriteriaTerbobotController::class, 'export'])->name('dataCriteria.export');
-    Route::get('data-kriteria/preview-download', [KriteriaTerbobotController::class, 'preview'])->name('dataCriteria.preview');
 
     // data sub kriteria
     // Route::get('/subkriteria/{criteria}/create', SubKriteriaController::class)->name('subkriteria.create');
