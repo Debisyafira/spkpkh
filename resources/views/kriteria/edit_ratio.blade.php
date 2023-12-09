@@ -58,7 +58,7 @@
                                     <input name="value" class="form-control" value="{{ $data->ratio->value }}">
                                 </div>
                                 <div class="form-group mt-3">
-                                    <a href="{{ route('admin.editRatioCriteria') }}"
+                                    <a href="{{ route('admin.criteria') }}"
                                         class="btn btn-primary btn-sm">kembali</a>
                                     <button type="submit" class="btn btn-success btn-sm">Update</button>
                                 </div>
