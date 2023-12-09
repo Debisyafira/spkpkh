@@ -37,6 +37,8 @@ Auth::routes();
 // Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin', 'auth', 'PreventBackHistory']], function () {
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('user', [AdminController::class, 'index'])->name('admin.user');
+    Route::get('user/add', [AdminController::class, 'add'])->name('admin.user.add');
+    Route::post('user/add', [AdminController::class, 'store'])->name('admin.user.store');
     Route::get('user/{id}', [AdminController::class, 'edit'])->name('admin.user.edit');
     Route::put('user/{id}', [AdminController::class, 'update'])->name('admin.user.update');
     Route::delete('user/delete', [AdminController::class, 'destroy'])->name('admin.user.delete');
@@ -71,7 +73,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::post('/ratioCriteria/save', [RatioCriteriaController::class, 'save'])->name('admin.ratioCriteria.saveEigen');
     Route::post('/addRatioCriteria', [CriteriaController::class, 'storeRatio'])->name('admin.addRatioCriteria');
     Route::post('/massRatioCriteria', [CriteriaController::class, 'massUpdate'])->name('admin.massRatioCriteria');
-    Route::get('/editRatioCriteria', [RatioCriteriaController::class, 'edit'])->name('admin.editRatioCriteria');
+    Route::get('/editRatioCriteria/{id}', [RatioCriteriaController::class, 'edit'])->name('admin.editRatioCriteria');
+    Route::post('/editRatioCriteria/{id}', [RatioCriteriaController::class, 'updateRatio'])->name('admin.editRatioCriteria');
     Route::get('/deleteRatioCriteria/{v_id}/{h_id}', [RatioCriteriaController::class, 'destroy'])->name('admin.deleteRatioCriteria');
 
     // Kriteria terbobot

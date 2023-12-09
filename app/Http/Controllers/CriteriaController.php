@@ -74,7 +74,7 @@ class CriteriaController extends Controller
         $request->validate([
             'v_criteria' => 'required|different:h_criteria',
             'h_criteria' => 'required|different:V_criteria',
-            'value' => 'numeric',
+            'value' => 'numeric|between:1,9',
         ]);
         $cek_kriteria = Ratio_criteria::where('v_criteria_id', $request->v_criteria)
             ->where('h_criteria_id', $request->h_criteria)

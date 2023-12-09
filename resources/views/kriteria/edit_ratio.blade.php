@@ -2,7 +2,7 @@
 @section('title', 'Data PKH')
 
 @section('content')
-    <form action="{{ route('admin.editRatioCriteria', ['id' => $data->ratio->id]) }}" method="post"
+    <form action="{{ route('admin.editRatioCriteria', ['id' => $data->ratio->id],false) }}" method="post"
         enctype="multipart/form-data">
         <div class="page-breadcrumb">
             <div class="row">
@@ -11,8 +11,8 @@
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
-                                <li class="breadcrumb-item"><a href="{{ route('admin.editRatioCriteria') }}"
-                                        class="text-muted">Home</a>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.criteria') }}"
+                                        class="text-muted">Kriteria</a>
                                 </li>
                                 <li class="breadcrumb-item text-muted active" aria-current="page">Edit</li>
                             </ol>
@@ -23,7 +23,6 @@
         </div>
 
         @csrf
-        @method('PUT')
         <div class="container-fluid mt-5">
             <div class="row ">
                 <div class="col-md-6 col-12">

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Calon_pkh;
 use App\Models\Log;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -22,6 +23,29 @@ class AdminController extends Controller
         return view('users.index', compact('users'));
     }
 
+    public function add(){
+        return view('users.add');   
+    }
+
+    public function store(Request $request){
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string',
+            'password' => 'required|string',
+            'role' => 'required|string',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' =>$request->email,
+            'role' => RoleEnum::from($request->role),
+            'password'=> Hash::make($request->password),
+        ]);
+
+        return redirect()->route('admin.user')->with('success', 'User telah di tambahkan');
+
+    }
+
     public function edit($id)
     {
         $user = User::find($id);
@@ -32,6 +56,7 @@ class AdminController extends Controller
     {
         $user = User::find($id);
         $user->role = RoleEnum::from($request->role);
+        $user->name = $request->name;
         $user->save();
 
         return redirect()->route('admin.user')->with('success', 'Role telah diperbarui!');
@@ -41,8 +66,9 @@ class AdminController extends Controller
     {
         $user = User::findOrFail($request->id);
         $user->delete();
-        return redirect()->route('user.index');
+        return redirect()->route('users.index');
     }
+
     
     // function profile()
     // {

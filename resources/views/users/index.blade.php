@@ -23,6 +23,8 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        <a href="{{ route('admin.user.add') }}"
+                            class="btn btn-success btn-sm my-2">Tambah User</a>
                         <div class="table-responsive">
                             {{-- Alerting --}}
                             @if (session('success'))

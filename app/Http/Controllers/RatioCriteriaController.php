@@ -278,29 +278,23 @@ class RatioCriteriaController extends Controller
         return view('kriteria.edit_ratio', compact('data'));
     }
 
-    public function updateRatio(Request $request)
+    public function updateRatio(Request $request,$id)
     {
         $request->validate([
             'v_criteria' => 'required|different:h_criteria',
             'h_criteria' => 'required|different:V_criteria',
-            'value' => 'numeric',
+            'value' => 'numeric|between:1,9',
         ]);
 
-        Ratio_criteria::create(
-            [
-                'v_criteria_id' => $request->v_criteria,
-                'h_criteria_id' => $request->h_criteria,
-                'value' => $request->value,
-            ]
-        );
-        Ratio_criteria::create([
-            'h_criteria_id' => $request->v_criteria,
-            'v_criteria_id' => $request->h_criteria,
-            'value' => (1 / $request->value),
-        ]);
+        $rt = Ratio_criteria::find($id);
+        $rt->v_criteria_id = $request->v_criteria;
+        $rt->h_criteria_id = $request->h_criteria;
+        $rt->value =  $request->value;
+        $rt->save();
 
-        return redirect()->back()->with('success', 'Input Data Sukses');
+        return redirect('/admin/criteria')->with('success', 'Data berhasil di ubah');
     }
+
     public function destroy($v_id, $h_id)
     {
 

@@ -30,11 +30,11 @@
                 <div class="card">
                     <div class="card-body">
                         @can('isUser')
-                            <div class="flex">
+                            <div class="d-flex justify-content-between">
                                 <a href="{{ route('admin.pkh.create') }}" type="submit" class="btn btn-primary"
                                     style="margin-bottom:10px">Tambah Data</a>
                                 {{-- Add form of Input type file, excel --}}
-                                <form action="{{ route('admin.pkh.excel') }}" method="POST" enctype="multipart/form-data">
+                                <!-- <form action="{{ route('admin.pkh.excel') }}" method="POST" enctype="multipart/form-data">
                                     <div class="mb-3 flex">
                                         @csrf
                                         <input type="file" name="excel_file" class="form-control">
@@ -42,7 +42,7 @@
                                         {{-- <button id="deleteAllSelectedRecord" class="btn btn-danger btn-sm"><i
                                             class="fas fa-trash"></i> Delete ALL</button> --}}
                                     </div>
-                                </form>
+                                </form> -->
                             </div>
                         @endcan
                         <div class="table-responsive">
