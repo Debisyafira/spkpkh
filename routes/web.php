@@ -40,10 +40,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('user/{id}', [AdminController::class, 'edit'])->name('admin.user.edit');
     Route::put('user/{id}', [AdminController::class, 'update'])->name('admin.user.update');
     Route::delete('user/delete', [AdminController::class, 'destroy'])->name('admin.user.delete');
-    Route::get('log', [LogController::class, 'index'])->name('admin.log');
-    Route::get('log/{id}', [LogController::class, 'show'])->name('admin.log.show');
-    Route::delete('log/delete', [LogController::class, 'destroy'])->name('admin.log.destroy');
-    Route::get('log/truncate', [LogController::class, 'truncate'])->name('admin.log.truncate');
+    Route::get('log', [LogController::class, 'index'])->name('log.index');
+    Route::get('log/{id}', [LogController::class, 'show'])->name('log.show');
+    Route::delete('log/delete', [LogController::class, 'destroy'])->name('log.destroy');
+    Route::get('truncate', [LogController::class, 'prune'])->name('log.prune');
 
     // Route::get('profile', [AdminController::class, 'profile'])->name('admin.profile');
 

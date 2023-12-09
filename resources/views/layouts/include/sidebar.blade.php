@@ -19,7 +19,7 @@
                             <li class="sidebar-item"><a href="{{ route('admin.user') }}" class="sidebar-link"><span
                                         class="hide-menu">User
                                         Management</span></a></li>
-                            <li class="sidebar-item"><a href="{{ route('admin.log') }}" class="sidebar-link"><span
+                            <li class="sidebar-item"><a href="{{ route('log.index') }}" class="sidebar-link"><span
                                         class="hide-menu">User
                                         Logs</span></a></li>
                         </ul>
