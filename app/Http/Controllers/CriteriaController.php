@@ -25,8 +25,7 @@ class CriteriaController extends Controller
         } catch (\Throwable $th) {
             $data = null;
         }
-
-        // dd($data);
+        
         return view('kriteria.index')->with('data', $data);
     }
 

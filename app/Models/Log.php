@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Log extends Model
 {
     use HasFactory;
-
+    protected $table = 'logs';
+    
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');

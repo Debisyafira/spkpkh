@@ -9,7 +9,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-muted">Home</a></li>
-                            <li class="breadcrumb-item" aria-current="page"><a href="{{ route('admin.log') }}"
+                            <li class="breadcrumb-item" aria-current="page"><a href="{{ route('log.index') }}"
                                     class="text-muted">User Logs</a></li>
                             <li class="breadcrumb-item text-muted active" aria-current="page">User Log Detail</li>
                         </ol>
@@ -27,11 +27,11 @@
                         <table class="table">
                             <tr>
                                 <td>User ID</td>
-                                <td>{{ $log->user_id }}</td>
+                                <td>{{ $log->user_id ?? '' }}</td>
                             </tr>
                             <tr>
                                 <td>Role</td>
-                                <td>{{ $log->user->role->name }}</td>
+                                <td>{{ $log->user->role->name ?? '' }}</td>
                             </tr>
                             <tr>
                                 <td>Action</td>
@@ -49,7 +49,7 @@
                                         <b>{{ json_encode(json_decode($log->data)->role) }}</b>.
                                     @endisset
                                     @isset(json_decode($log->data)->user_agent)
-                                        Login from <b>{{ json_encode(json_decode($log->data)->user_agent) }}</b>. 
+                                        Login from <b>{{ json_encode(json_decode($log->data)->user_agent) }}</b>.
                                     @endisset
                                 </td>
                             </tr>
