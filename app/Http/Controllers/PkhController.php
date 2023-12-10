@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Calon_pkh;
 use App\Models\Criteria;
 use App\Models\PkhCriteria;
+use App\Models\kriteria_terbobot;
 use App\Models\Subkriteria;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+
 
 class PkhController extends Controller
 {
@@ -159,4 +161,24 @@ class PkhController extends Controller
     //     Calon_pkh::whereIn('id', $ids)->delete();
     //     return response()->json(["success" => "berhasil"]);
     // }
+
+    public function result(){
+        
+        $data = Kriteria_terbobot::get();
+        $criteria = Criteria::all();
+        $calonPkhs = Calon_pkh::all();
+        $minimumValues = PkhCriteria::select('criteria_id', \DB::raw('MIN(value) as value'))
+            ->groupBy('criteria_id')
+            ->get();
+        $maxValues = PkhCriteria::select('criteria_id', \DB::raw('MAX(value) as value'))
+            ->groupBy('criteria_id')
+            ->get();
+        $sumValues = PkhCriteria::select('criteria_id', \DB::raw('SUM(value) as sum'))
+            ->groupBy('criteria_id')
+            ->get();
+        $sumValuesCost = PkhCriteria::select('criteria_id', \DB::raw('SUM(1/value) as sum'))
+            ->groupBy('criteria_id')
+            ->get();
+        return view('pkh.result', compact('data', 'criteria', 'calonPkhs', 'minimumValues', 'maxValues', 'sumValues', 'sumValuesCost'));
+    }
 }

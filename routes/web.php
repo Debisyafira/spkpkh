@@ -58,6 +58,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::delete('pkh/delete', [PkhController::class, 'destroy'])->name('admin.pkh.delete');
     // Route::delete('pkh/deleteAll', [PkhController::class, 'deleteAll'])->name('admin.pkh.deleteAll');
     Route::post('pkh/excel', [PkhController::class, 'importExcel'])->name('admin.pkh.excel');
+    Route::get('pkh/result', [PkhController::class, 'result'])->name('admin.pkh.result');
+    
 
     // Kriteria
     Route::get('/criteria', [CriteriaController::class, 'index'])->name('admin.criteria');
@@ -80,6 +82,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     // Kriteria terbobot
     Route::get('data-kriteria', [KriteriaTerbobotController::class, 'index'])->name('dataCriteria');
     Route::get('data-kriteria/download', [KriteriaTerbobotController::class, 'export'])->name('dataCriteria.export');
+
 
     // data sub kriteria
     // Route::get('/subkriteria/{criteria}/create', SubKriteriaController::class)->name('subkriteria.create');

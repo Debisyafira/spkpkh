@@ -56,6 +56,12 @@
                                     class="hide-menu"> Data KPM PKH
                                 </span></a>
                         </li>
+                        @can('isUser')
+                        <li class="sidebar-item"><a href="{{ route('admin.pkh.result') }}" class="sidebar-link"><span
+                                    class="hide-menu"> Cetak Hasil
+                                </span></a>
+                        </li>
+                        @endcan
                     </ul>
                 </li>
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"

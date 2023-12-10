@@ -30,6 +30,7 @@ class KriteriaTerbobotController extends Controller
         return view('kriteria_terbobot.index', compact('data', 'criteria', 'calonPkhs', 'minimumValues', 'maxValues', 'sumValues', 'sumValuesCost'));
     }
 
+
     public function export()
     {
         /// TOLONG EDIT DULU TAMPILANNYA BUAT LAYOUT PDF, AKU MAGER :)
