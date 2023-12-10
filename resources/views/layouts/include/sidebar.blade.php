@@ -26,11 +26,12 @@
                     </li>
                 @endcan
 
-
+                
                 <li class="list-divider"></li>
                 <li class="nav-small-cap">
                     <span class="hide-menu">Features</span>
                 </li>
+                @if(auth()->user()->role->value == "ADMIN" || auth()->user()->role->value == "OPT" )
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="file-text" class="feather-icon">
@@ -48,6 +49,8 @@
                         </li>
                     </ul>
                 </li>
+                @endif
+
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
                         aria-expanded="false"><i data-feather="file-plus" class="feather-icon"></i><span
                             class="hide-menu">Calon KPM PKH</span></a>
@@ -56,14 +59,14 @@
                                     class="hide-menu"> Data KPM PKH
                                 </span></a>
                         </li>
-                        @can('isUser')
                         <li class="sidebar-item"><a href="{{ route('admin.pkh.result') }}" class="sidebar-link"><span
                                     class="hide-menu"> Cetak Hasil
                                 </span></a>
                         </li>
-                        @endcan
                     </ul>
                 </li>
+
+                @if(auth()->user()->role->value == "ADMIN" || auth()->user()->role->value == "OPT" )
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
                         aria-expanded="false"><i data-feather="archive" class="feather-icon"></i><span
                             class="hide-menu">
@@ -73,21 +76,9 @@
                                     class="hide-menu"> penilaian
                                 </span></a>
                         </li>
-                        {{-- <li class="sidebar-item"><a href="table-basic.html" class="sidebar-link"><span class="hide-menu">
-              Sub Kriteria
-            </span></a>
-        </li>
-        <li class="sidebar-item"><a href="table-basic.html" class="sidebar-link"><span class="hide-menu">
-              Penilaian
-            </span></a>
-        </li> --}}
                     </ul>
                 </li>
-                {{-- <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="authentication-login1.html"
-        aria-expanded="false"><i data-feather="layers" class="feather-icon"></i><span
-          class="hide-menu">Hasil SPK
-        </span></a> --}}
-                </li>
+                @endif
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

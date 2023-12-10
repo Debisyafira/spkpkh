@@ -29,7 +29,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        @can('isUser')
+                        @if(auth()->user()->role->value == "ADMIN" || auth()->user()->role->value == "USER" )
                             <div class="d-flex justify-content-between">
                                 <a href="{{ route('admin.pkh.create') }}" type="submit" class="btn btn-primary"
                                     style="margin-bottom:10px">Tambah Data</a>
@@ -44,7 +44,7 @@
                                     </div>
                                 </form> -->
                             </div>
-                        @endcan
+                        @endif
                         <div class="table-responsive">
                             <table id="zero_config" class="table border table-striped table-bordered text-nowrap">
                                 <thead>
