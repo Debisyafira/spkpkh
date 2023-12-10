@@ -73,7 +73,7 @@
                             Metode ARAS</span></a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item"><a href="{{ route('dataCriteria') }}" class="sidebar-link"><span
-                                    class="hide-menu"> penilaian
+                                    class="hide-menu"> Penilaian
                                 </span></a>
                         </li>
                     </ul>

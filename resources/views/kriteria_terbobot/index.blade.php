@@ -4,15 +4,13 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Data Kriteria Terbobot</h4>
+                <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Penilaian Metode ARAS</h4>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-muted">Home</a>
                             </li>
-                            <li class="breadcrumb-item text-muted active" aria-current="page">Data Kriteria Terbobot
-                                Berdasar Benefit &
-                                Cost</li>
+                            <li class="breadcrumb-item text-muted active" aria-current="page">Penilaian Metode ARAS</li>
                         </ol>
                     </nav>
                 </div>
@@ -22,13 +20,7 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <a href="{{ route('dataCriteria.export')}}" class="btn btn-success">Export Data</a>
-                    </div>
-                </div>
-            </div>
+ 
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
