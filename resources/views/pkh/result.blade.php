@@ -155,12 +155,12 @@
     $(document).ready(function() {
 
         const table = $('#rank_pkh').DataTable({
-        dom: 'Bfrtip',
+        dom: 'Bfrtilp',
         "order":[
           ['0','asc'], //urutkan berdasarkan tahun terakhir
         ],
         "buttons": [
-        'excel', 'pdf'
+        'pdf'
       ],})
 
     })
