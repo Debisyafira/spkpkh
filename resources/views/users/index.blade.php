@@ -75,8 +75,10 @@
                                                                 showConfirmButton: false,
                                                                 timer: 2000
                                                             });
+                                                            
                                                         }
                                                     });
+                                                    location.reload()
                                                 }
                                             }
                                         </script>
