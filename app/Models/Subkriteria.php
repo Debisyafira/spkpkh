@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Haruncpi\LaravelUserActivity\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Subkriteria extends Model
 {
-    use HasFactory;
+    use HasFactory, Loggable;
     // table name = subkriteria
     protected $table = 'subkriteria';
     protected $fillable = [

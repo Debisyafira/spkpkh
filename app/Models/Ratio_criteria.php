@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Haruncpi\LaravelUserActivity\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Ratio_criteria extends Model
 {
-    use HasFactory;
+    use HasFactory, Loggable;
 
     /**
      * The attributes that are mass assignable.
