@@ -9,6 +9,7 @@ use App\Models\kriteria_terbobot;
 use App\Models\Subkriteria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -17,10 +18,7 @@ class PkhController extends Controller
     public function index()
     {
         $userId = Auth::user()->id;
-        $data = Calon_pkh::where('id_user', $userId)->get();
-        // $count = Calon_pkh::count();
-
-        // dd($data);
+        $data = Gate::allows('isAdmin') ? Calon_pkh::all() : Calon_pkh::where('id_user', $userId)->get();
         return view('pkh.index', compact('data'));
     }
 
@@ -33,9 +31,11 @@ class PkhController extends Controller
 
     public function store(Request $request)
     {
+        $userId = Auth::user()->id;
         $calonPkh = new Calon_pkh([
             'nama' => $request->nama_lengkap,
             'alamat' => $request->alamat,
+            'id_user' => $userId
         ]);
 
         $calonPkh->save();
@@ -164,7 +164,8 @@ class PkhController extends Controller
     //     return response()->json(["success" => "berhasil"]);
     // }
 
-    public function result(){
+    public function result()
+    {
         $userId = Auth::user()->id;
         $data = Kriteria_terbobot::get();
         $criteria = Criteria::all();
