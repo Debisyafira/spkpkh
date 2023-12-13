@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Haruncpi\LaravelUserActivity\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class PkhCriteria extends Model
 {
-    use HasFactory;
+    use HasFactory, Loggable;
     protected $table = 'pkh_sub_criteria';
     protected $fillable = [
         'pkh_id',

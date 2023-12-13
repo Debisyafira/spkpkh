@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Haruncpi\LaravelUserActivity\Traits\Loggable;
 use Illuminate\Database\Eloquent\Model;
 
 class kriteria_terbobot extends Model
 {
+    use Loggable;
     protected $guarded = [];
 
     protected $table = 'kriteria_terbobots';
