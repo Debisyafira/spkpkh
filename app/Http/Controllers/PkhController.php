@@ -34,6 +34,7 @@ class PkhController extends Controller
         $calonPkh = new Calon_pkh([
             'nama' => $request->nama_lengkap,
             'alamat' => $request->alamat,
+            'id_user' => $request->id_user,
         ]);
 
         $calonPkh->save();
