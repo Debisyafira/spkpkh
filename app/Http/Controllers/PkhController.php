@@ -79,6 +79,7 @@ class PkhController extends Controller
         $calonPkh->update([
             'nama' => $request->nama,
             'alamat' => $request->alamat,
+            'id_user' => $request->id_user,
         ]);
 
         PkhCriteria::where('calon_pkh_id', $calonPkh->id)->delete();

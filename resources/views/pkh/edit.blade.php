@@ -3,7 +3,8 @@
 
 @section('content')
   <form action="{{ route('admin.pkh.update', ['id' => $data->id]) }}" method="post" enctype="multipart/form-data">
-    <div class="page-breadcrumb">
+  <input type="hidden" name="id_user" value="{{auth()->user()->id}}">  
+  <div class="page-breadcrumb">
       <div class="row">
         <div class="col-7 align-self-center">
           <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Data Penduduk</h4>
