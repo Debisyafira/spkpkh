@@ -3,6 +3,7 @@
 
 @section('content')
   <form action="{{ route('admin.pkh.simpan') }}" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="id_user" value="{{auth()->user()->id}}">
     <div class="page-breadcrumb">
       <div class="row">
         <div class="col-7 align-self-center">
