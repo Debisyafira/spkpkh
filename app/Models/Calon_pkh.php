@@ -13,7 +13,7 @@ class Calon_pkh extends Model
     // protected $primaryKey = 'id';
     public $timestamps = false;
     protected $fillable = [
-         'nama', 'alamat',
+         'nama', 'alamat', 'id_user'
     ];
 
     public function subCriterias()

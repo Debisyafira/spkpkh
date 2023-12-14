@@ -52,9 +52,9 @@
                                         {{-- <th><input type="checkbox" name="ids" id="select_all_ids"> </th> --}}
                                         <th scope="col">Nama</th>
                                         <th scope="col">Alamat</th>
-                                        @can('isUser')
+                                        @if(\Gate::allows('isUser') || \Gate::allows('isAdmin'))
                                             <th scope="col">Aksi</th>
-                                        @endcan
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -65,17 +65,17 @@
                                                     value="{{ $item['id'] }}" id=""></th> --}}
                                             <td>{{ $item->nama }}</td>
                                             <td>{{ $item->alamat }}</td>
-                                            @can('isUser')
+                                            @if(\Gate::allows('isUser') || \Gate::allows('isAdmin'))
                                                 <td>
                                                     <a href="{{ route('admin.pkh.edit', ['id' => $item->id]) }}"
                                                         class="btn btn-success btn-sm">Edit</a>
                                                     <button onclick="destroy({{ $item->id }})"
                                                         class="btn btn-danger btn-sm">Delete</button>
                                                 </td>
-                                            @endcan
+                                            @endif
 
                                         </tr>
-                                        @can('isUser')
+                                        @if(\Gate::allows('isUser') || \Gate::allows('isAdmin'))
                                             <script>
                                                 function destroy(id) {
                                                     if (confirm('Anda yakin ingin menghapus data ?')) {
@@ -103,7 +103,7 @@
                                                     }
                                                 }
                                             </script>
-                                        @endcan
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>
