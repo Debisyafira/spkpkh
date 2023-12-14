@@ -89,7 +89,7 @@
                         </table>
                     </div>
                     <div class="row">
-                        {!! $logs->links() !!}
+                        {!! $logs->links('pagination::bootstrap-5') !!}
                     </div>
                 </div>
             </div>
