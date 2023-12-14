@@ -8,7 +8,6 @@ use App\Models\PkhCriteria;
 use App\Models\kriteria_terbobot;
 use App\Models\Subkriteria;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -16,8 +15,7 @@ class PkhController extends Controller
 {
     public function index()
     {
-        $userId = Auth::user()->id;
-        $data = Calon_pkh::where('id_user', $userId)->get();
+        $data = Calon_pkh::get();
         // $count = Calon_pkh::count();
 
         // dd($data);
@@ -165,10 +163,10 @@ class PkhController extends Controller
     // }
 
     public function result(){
-        $userId = Auth::user()->id;
+      
         $data = Kriteria_terbobot::get();
         $criteria = Criteria::all();
-        $calonPkhs = Calon_pkh::where('id_user', $userId)->get();
+        $calonPkhs = Calon_pkh::all();
         $minimumValues = PkhCriteria::select('criteria_id', \DB::raw('MIN(value) as value'))
             ->groupBy('criteria_id')
             ->get();
