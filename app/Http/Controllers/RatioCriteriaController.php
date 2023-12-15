@@ -80,7 +80,7 @@ class RatioCriteriaController extends Controller
      * @return array Matrix data array
      *
      */
-
+    // indeks konsistensi kriteria
     public static function lamda($arraysumCOl, $arrayEigen)
     {
         $sumCol = $arraysumCOl;
@@ -147,7 +147,7 @@ class RatioCriteriaController extends Controller
      * @return array
      */
     public static function showCriteria()
-    {
+    { // matriks perbandingan berpasangan
         $criteria = Criteria::all();
         $matrix = array();
         $eigen = array();
@@ -188,7 +188,7 @@ class RatioCriteriaController extends Controller
             }
             $matrix[$columnName] = array_merge($columnVal, array('sumCol' => $devider));
         }
-        return self::reverseMatrix($matrix);
+        return self::reverseMatrix($matrix); //Fungsi ini mungkin digunakan untuk memproses lebih lanjut matriks yang telah dihasilkan.
     }
 
     /**
@@ -197,6 +197,8 @@ class RatioCriteriaController extends Controller
      * @param  Array
      * @return Array
      */
+
+    //normalisai & bobot 
     public static function eigen($array): array
     {
         $data = array();
@@ -278,7 +280,7 @@ class RatioCriteriaController extends Controller
         return view('kriteria.edit_ratio', compact('data'));
     }
 
-    public function updateRatio(Request $request,$id)
+    public function updateRatio(Request $request, $id)
     {
         $request->validate([
             'v_criteria' => 'required|different:h_criteria',

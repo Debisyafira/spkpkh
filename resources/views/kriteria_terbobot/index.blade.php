@@ -20,7 +20,7 @@
 
     <div class="container-fluid">
         <div class="row">
- 
+
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
@@ -131,11 +131,9 @@
                                     @endphp
                                     @foreach ($calonPkhs as $item)
                                         @if (isset($item->Subcriterias[0]))
-                                            {{-- @dd($item->Subcriterias) --}}
                                             <tr data-id="cpkh{{ $no }}">
                                                 <td>A{{ $no }} ({{ $item->nama }})</td>
                                                 @foreach ($item->Subcriterias as $sub)
-                                                    {{-- dd($sub) --}}
                                                     <td>
                                                         @php
 
@@ -345,5 +343,5 @@
     {{-- This page plugins --}}
     <script src="{{ asset('assets/extra-libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('dist/js/pages/datatable/datatable-basic.init.js') }}"></script>
+    {{-- <script src="{{ asset('dist/js/pages/datatable/datatable-basic.init.js') }}"></script> --}}
 @endsection

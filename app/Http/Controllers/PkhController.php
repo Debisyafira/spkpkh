@@ -13,6 +13,15 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PkhController extends Controller
 {
+    public function hello()
+    {
+        $data = Calon_pkh::get();
+        // $count = Calon_pkh::count();
+
+        // dd($data);
+        return view('pkh.hello', compact('data'));
+    }
+
     public function index()
     {
         $data = Calon_pkh::get();
@@ -164,8 +173,9 @@ class PkhController extends Controller
     //     return response()->json(["success" => "berhasil"]);
     // }
 
-    public function result(){
-      
+    public function result()
+    {
+
         $data = Kriteria_terbobot::get();
         $criteria = Criteria::all();
         $calonPkhs = Calon_pkh::all();

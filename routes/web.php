@@ -59,7 +59,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     // Route::delete('pkh/deleteAll', [PkhController::class, 'deleteAll'])->name('admin.pkh.deleteAll');
     Route::post('pkh/excel', [PkhController::class, 'importExcel'])->name('admin.pkh.excel');
     Route::get('pkh/result', [PkhController::class, 'result'])->name('admin.pkh.result');
-    
+    Route::get('pkh/hello', [PkhController::class, 'hello'])->name('admin.pkh.hello');
 
     // Kriteria
     Route::get('/criteria', [CriteriaController::class, 'index'])->name('admin.criteria');
